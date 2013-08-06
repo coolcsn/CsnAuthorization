@@ -1,0 +1,36 @@
+{
+    "name":         "coolcsn/csn-authorization",
+    "description":  "Authorization based on DoctrineORMModule and ACL",
+    "type":         "library",
+    "license":      "BSD-3-Clause",
+    "homepage":     "https://github.com/coolcsn/CsnAuthorization",
+    "keywords": [
+        "zf2",
+        "csn-authorization",
+        "doctrine-orm-module",
+        "doctrine"
+    ],
+    "authors": [
+        {
+            "name":      "Stoyan Cheresharov",
+            "email":     "stoyancheresharov@gmail.com",
+            "homepage":  "http://coolcsn.com/",
+            "role":      "Developer"
+        },
+		{
+            "name":      "Stoyan Revov",
+            "email":     "st.revov@gmail.com",
+            "role":      "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3",
+        "doctrine/doctrine-orm-module": ">=0.7"
+    },
+    "autoload": {
+        "psr-0": {
+            "CsnAuthorization\\": "src/"
+        }
+    }
+}
