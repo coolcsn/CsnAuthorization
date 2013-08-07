@@ -1,0 +1,22 @@
+<?php
+// http://p0l0.binware.org/index.php/2012/02/18/zend-framework-2-authentication-acl-using-eventmanager/
+return array(
+    'acl' => array(
+        'roles' => array(
+            'guest'   => null,
+            'member'  => 'guest',
+            'admin'  => 'member',
+        ),
+        'resources' => array(
+            'allow' => array(
+				'Album\Controller\Album' => array(
+					'index'	=> 'guest',
+					'add'	=> 'member',
+				),
+				'Application\Controller\Index' => array(
+					'all'   => 'guest'					
+				),
+            )
+        )
+    )
+);
