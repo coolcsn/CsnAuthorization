@@ -1,5 +1,4 @@
 <?php
-// http://p0l0.binware.org/index.php/2012/02/18/zend-framework-2-authentication-acl-using-eventmanager/
 return array(
     'acl' => array(
         'roles' => array(
@@ -13,8 +12,14 @@ return array(
 					'index'	=> 'guest',
 					'add'	=> 'member',
 				),
+				'CsnUser\Controller\Index' => array(
+					'all'   => 'guest'
+				),
+				'CsnUser\Controller\Registration' => array(
+					'all'   => 'guest'
+				),
 				'Application\Controller\Index' => array(
-					'all'   => 'guest'					
+					'all'   => 'guest'
 				),
             )
         )

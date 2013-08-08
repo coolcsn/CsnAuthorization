@@ -13,9 +13,10 @@ An alternative to BjyAuthorize, working in perfect harmony with *Doctrine* and t
 
 Installation
 ------------
-- Installation via composer is supported, simply run:
+- Installation via composer is supported, simply run (make sure you've set `"minimum-stability": "dev"` in your *composer.json* file):
 `php composer.phar require coolcsn/csn-authorization:dev-master`
 - Add 'CsnAuthorization' to your application configuration in `config/application.config.php`. An example application configuration could look like the following:
+
 ```
 'modules' => array(
     'Application',
@@ -23,7 +24,9 @@ Installation
     'CsnAuthorization'
 )
 ```
+
 - CsnAuthorization requires setting a connection for Doctrine (if you haven't done this for some of your other modules). You can paste the following snippet in `config/autoload/doctrine.local.php`, replacing the tokens with your actual connection parameters:
+
 ```
 return array(
   'doctrine' => array(
@@ -38,6 +41,7 @@ return array(
           'dbname'   => 'database',
 )))));
 ```
+
 - After that, set up your Access Control List configuration by copying `acl.global.php.dist` (located in `vendor/coolcsn/csn-authorization/config` if you have installed via *Composer*) into your `config/autoload` directory (Remove the .dist part).
 
 >### Does it work? ###
