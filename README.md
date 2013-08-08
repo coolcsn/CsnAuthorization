@@ -11,34 +11,18 @@ CsnAuthorization has been created with educational purposes to demonstrate how A
 
 **What's the use again?**
 
-Nothing but yet another Authorization Module like BjyAuthorize.
+An alternative to BjyAuthorize.
 
 Installation
 ============
 
-Installation via composer is supported, simply add the following line to your ```composer.json```
+Installation via composer is supported, simply add the following line to the *require* block of your ```composer.json```
 
 ```
-"repositories": [
-	{
-		"type": "vcs",
-		"url": "https://github.com/coolcsn/CsnAuthorization"
-	}
-],
-"require" : {
     "coolcsn/csn-authorization": "dev-master"
-}
 ```
 
-After adding to the composer's packagist.org (not ready yet)
-
-```
-"require" : {
-    "coolcsn/csn-authorization": "dev-master"
-}
-```
-
-An example application configuration could look like the following:
+Add this module to your application configuration. An example application configuration could look like the following:
 
 ```
 'modules' => array(
@@ -52,11 +36,11 @@ An example application configuration could look like the following:
 Configuration
 =============
 
-This Module requires setting a connection for Doctrine and configuring the ACL.
+This Module requires setting a connection for Doctrine and configuring the ACL (You can use the dist file in the *config* folder).
 
 Dependencies
 ============
 
-This Module depends on the following Modules:
+This Module depends on an Authentication module and:
 
  - DoctrineORMModule
