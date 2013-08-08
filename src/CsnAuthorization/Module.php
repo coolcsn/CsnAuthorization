@@ -41,23 +41,8 @@ class Module
 		$role = Acl::DEFAULT_ROLE; // The default role is guest $acl
 
 		if ($auth->hasIdentity()) {
-			$user = $auth->getIdentity();
-			$roleId = $user->getRoleId(); // Use a view to get the name of the role
-				// TODO: we don't need that if the names of the roles are coming from the DB
-				switch ($roleId) {
-					case 1 :
-						$role = Acl::DEFAULT_ROLE; // guest
-						break;
-					case 2 :
-						$role = 'member';
-						break;
-					case 3 :
-						$role = 'admin';
-						break;
-					default :
-						$role = Acl::DEFAULT_ROLE; // guest
-						break;
-			}
+			$user = $auth->getIdentity();	
+			$role = $user->getRole()->getName();
 		}
 
 		$controller = $routeMatch->getParam('controller');
