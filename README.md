@@ -15,7 +15,6 @@ Installation
 ------------
 - Installation via composer is supported, simply run:
 `php composer.phar require coolcsn/csn-authorization:dev-master`
-
 - Add 'CsnAuthorization' to your application configuration in `config/application.config.php`. An example application configuration could look like the following:
 ```
 'modules' => array(
@@ -39,7 +38,7 @@ return array(
           'dbname'   => 'database',
 )))));
 ```
-- After that, set up your Access Control List configuration by copying `acl.global.php.dist` (located in `vendor/coolcsn/csn-authorization/config` if you have installed via *Composer*) into your ./config/autoload directory (Remove the .dist part).
+- After that, set up your Access Control List configuration by copying `acl.global.php.dist` (located in `vendor/coolcsn/csn-authorization/config` if you have installed via *Composer*) into your `config/autoload` directory (Remove the .dist part).
 
 >### Does it work? ###
 Navigate to a controller/action which has been allowed only for members in your ACL configuration and you should be redirected. Now login (preferably using CsnUser) and attempt that action again. Enjoy :)
