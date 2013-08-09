@@ -20,6 +20,8 @@ Installation
 ```
 'modules' => array(
     'Application',
+	'DoctrineModule',
+    'DoctrineORMModule',
     'CsnUser',
     'CsnAuthorization'
 )
