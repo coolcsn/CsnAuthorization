@@ -15,6 +15,7 @@ Installation
 ------------
 - Installation via composer is supported, simply run (make sure you've set `"minimum-stability": "dev"` in your *composer.json* file):
 `php composer.phar require coolcsn/csn-authorization:dev-master`
+- Configure referenced module ([CsnUser](https://github.com/coolcsn/CsnUser)) following its instructions.
 - Add 'CsnAuthorization' to your application configuration in `config/application.config.php`. An example application configuration could look like the following:
 
 ```
@@ -27,7 +28,7 @@ Installation
 )
 ```
 
-- CsnAuthorization requires setting a connection for Doctrine (if you haven't done this for some of your other modules). You can paste the following snippet in `config/autoload/doctrine.local.php`, replacing the tokens with your actual connection parameters:
+- CsnAuthorization requires setting a connection for Doctrine (if you haven't done this for some of your other modules, e.g. CsnUser). You can paste the following snippet in `config/autoload/doctrine.local.php`, replacing the tokens with your actual connection parameters:
 
 ```
 return array(
@@ -53,11 +54,11 @@ Dependencies
 ------------
 This Module depends on the following Modules:
 
- - DoctrineORMModule
- - CsnUser (Decoupling - coming soon!!!)
+- DoctrineORMModule
+- CsnUser (Decoupling - coming soon!!!)
 
 Recommends
 ----------
- - CsnUser - Authentication (login, registration) module, fully compatible with CsnAuthorization.
- - CsnNavigation - Navigation panel;
- - CsnCms - Content management system;
+- [coolcsn/CsnUser](https://github.com/coolcsn/CsnUser) - Authentication (login, registration) module.
+- [coolcsn/CsnAclNavigation](https://github.com/coolcsn/CsnAclNavigation) - Navigation module;
+- [coolcsn/CsnCms](https://github.com/coolcsn/CsnCms) - Content management system;
