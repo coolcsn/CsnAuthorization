@@ -8,18 +8,57 @@ return array(
         ),
         'resources' => array(
             'allow' => array(
-				'Album\Controller\Album' => array(
+				'CsnUser\Controller\Registration' => array(
 					'index'	=> 'guest',
-					'add'	=> 'member',
+					'changePassword' => 'member',
+					'editProfile' => 'member',
+					'changeEmail' => 'member',
+					'forgottenPassword' => 'guest',
 				),
 				'CsnUser\Controller\Index' => array(
-					'all'   => 'guest'
+					'login'   => 'guest',
+					'logout'  => 'member',
+					'index' => 'guest',
 				),
-				'CsnUser\Controller\Registration' => array(
-					'all'   => 'guest'
+                                'CsnCms\Controller\Index' => array(
+                                        'all' => 'guest'
+                                ),
+                                'CsnCms\Controller\Article' => array(
+					'view'	=> 'guest',
+					'index' => 'admin',
+					'add'	=> 'admin',
+					'edit'  => 'admin',	
+					'delete'=> 'admin',						
+				),
+				'CsnCms\Controller\Translation' => array(
+					'view'	=> 'guest',
+					'index' => 'admin',
+					'add'	=> 'admin',
+					'edit'  => 'admin',	
+					'delete'=> 'admin',						
+				),
+				'CsnCms\Controller\Comment' => array(
+					'view'	=> 'guest',
+					'index' => 'admin',
+					'add'	=> 'admin',
+					'edit'  => 'admin',	
+					'delete'=> 'admin',						
+				),
+				'Zend' => array(
+					'uri'   => 'member'
 				),
 				'Application\Controller\Index' => array(
-					'all'   => 'guest'
+					'index'   => 'guest',
+				),
+				// for CMS articles
+				'Public Resource' => array(
+					'view'	=> 'guest',					
+				),
+				'Private Resource' => array(
+					'view'	=> 'member',					
+				),
+				'Admin Resource' => array(
+					'view'	=> 'admin',					
 				),
             )
         )
