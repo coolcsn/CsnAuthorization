@@ -14,6 +14,8 @@ return array(
 					'editProfile' => 'member',
 					'changeEmail' => 'member',
 					'forgottenPassword' => 'guest',
+					'confirmEmail' => 'guest',
+					'registrationSuccess' => 'guest',
 				),
 				'CsnUser\Controller\Index' => array(
 					'login'   => 'guest',
@@ -23,7 +25,7 @@ return array(
                                 'CsnCms\Controller\Index' => array(
                                         'all' => 'guest'
                                 ),
-                                'CsnCms\Controller\Article' => array(
+				'CsnCms\Controller\Article' => array(
 					'view'	=> 'guest',
 					'index' => 'admin',
 					'add'	=> 'admin',

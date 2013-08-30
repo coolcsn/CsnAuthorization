@@ -21,31 +21,14 @@ Installation
 ```
 'modules' => array(
     'Application',
-	'DoctrineModule',
+    'DoctrineModule',
     'DoctrineORMModule',
     'CsnUser',
     'CsnAuthorization'
 )
 ```
 
-- CsnAuthorization requires setting a connection for Doctrine (if you haven't done this for some of your other modules, e.g. CsnUser). You can paste the following snippet in `config/autoload/doctrine.local.php`, replacing the tokens with your actual connection parameters:
-
-```
-return array(
-  'doctrine' => array(
-    'connection' => array(
-      'orm_default' => array(
-        'driverClass' =>'Doctrine\DBAL\Driver\PDOMySql\Driver',
-        'params' => array(
-          'host'     => 'localhost',
-          'port'     => '3306',
-          'user'     => 'username',
-          'password' => 'password',
-          'dbname'   => 'database',
-)))));
-```
-
-- After that, set up your Access Control List configuration by copying `acl.global.php.dist` (located in `vendor/coolcsn/csn-authorization/config` if you have installed via *Composer*) into your `config/autoload` directory (Remove the .dist part).
+- After that, set up your **Access Control List** configuration by copying `acl.global.php.dist` (located in `vendor/coolcsn/csn-authorization/config` if you have installed via *Composer*) into your `config/autoload` directory (Remove the .dist part).
 
 >### Does it work? ###
 Navigate to a controller/action which has been allowed only for members in your ACL configuration and you should be redirected. Now login (preferably using CsnUser) and attempt that action again. Enjoy :)
