@@ -22,9 +22,9 @@ return array(
 					'logout'  => 'member',
 					'index' => 'guest',
 				),
-                                'CsnCms\Controller\Index' => array(
-                                        'all' => 'guest'
-                                ),
+				'CsnCms\Controller\Index' => array(
+						'all' => 'guest'
+				),
 				'CsnCms\Controller\Article' => array(
 					'view'	=> 'guest',
 					'index' => 'admin',
@@ -33,14 +33,18 @@ return array(
 					'delete'=> 'admin',						
 				),
 				'CsnCms\Controller\Translation' => array(
-					'view'	=> 'guest',
 					'index' => 'admin',
 					'add'	=> 'admin',
 					'edit'  => 'admin',	
 					'delete'=> 'admin',						
 				),
 				'CsnCms\Controller\Comment' => array(
-					'view'	=> 'guest',
+					'index' => 'admin',
+					'add'	=> 'admin',
+					'edit'  => 'admin',	
+					'delete'=> 'admin',						
+				),
+				'CsnCms\Controller\Category' => array(
 					'index' => 'admin',
 					'add'	=> 'admin',
 					'edit'  => 'admin',	
