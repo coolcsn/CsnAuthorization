@@ -66,6 +66,9 @@ return array(
 					'index'   => 'guest',
 				),
 				// for CMS articles
+                                'all' => array(
+					'view'	=> 'guest',					
+				),
 				'Public Resource' => array(
 					'view'	=> 'guest',					
 				),
