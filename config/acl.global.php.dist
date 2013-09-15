@@ -81,6 +81,14 @@ return array(
 				'Admin Resource' => array(
 					'view'	=> 'admin',					
 				),
+            ),
+            'deny' => array(
+                                'CsnUser\Controller\Index' => array(
+                                        'login'   => 'member'
+                                ),
+                               'CsnUser\Controller\Registration' => array(
+                                        'index'   => 'member',
+                                ),
             )
         )
     )
