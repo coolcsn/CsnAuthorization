@@ -36,6 +36,7 @@ return array(
 				),
 				'CsnCms\Controller\Article' => array(
 					'view'	=> 'guest',
+					'vote'  => 'member',
 					'index' => 'admin',
 					'add'	=> 'admin',
 					'edit'  => 'admin',	
