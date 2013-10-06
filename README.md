@@ -28,7 +28,7 @@ Installation
 )
 ```
 
-- Run `./vendor/bin/doctrine-module orm:schema-tool:update` to update the database schema if you are going to store the ACL in the database (**Note:** You may need to force the update by adding ` --force` to the command).
+- **Recommended:** Run `./vendor/bin/doctrine-module orm:schema-tool:update` to update the database schema if you are going to store the ACL in the database (**Note:** You may need to force the update by adding ` --force` to the command).
 - After that, set up your **Access Control List** configuration by copying `acl.global.php.dist` (located in `vendor/coolcsn/csn-authorization/config` if you have installed via *Composer*) into your `config/autoload` directory (Remove the .dist part).
 
 >### Does it work? ###
