@@ -10,6 +10,32 @@
 
 return array(
     'acl' => array(
+        /**
+         * By default the ACL is stored in this config file.
+         * If you activate the database_storage ACL will be constructed from the database via Doctrine
+         * and the roles and resources defined in this config wil be ignored.
+         * 
+         * Defaults to false.
+         */
+        'use_database_storage' => false,
+        /**
+         * The route where users are redirected if access is denied.
+         * Set to empty array to disable redirection.
+         */
+        'redirect_route' => array(
+            'params' => array(
+                //'controller' => 'my_controllet',
+                //'action' => 'my_action',
+                //'id' => '1',
+            ),
+            'options' => array(
+                'name' => 'login', 
+            ),
+        ),
+        /**
+         * Access Control List
+         * -------------------
+         */
         'roles' => array(
             'guest'   => null,
             'member'  => 'guest',
@@ -49,10 +75,10 @@ return array(
 					'delete'=> 'admin',						
 				),
 				'CsnCms\Controller\Comment' => array(
-					'index' => 'admin',
-					'add'	=> 'admin',
-					'edit'  => 'admin',	
-					'delete'=> 'admin',						
+					'index' => 'member',
+					'add'	=> 'member',
+					'edit'  => 'member',	
+					'delete'=> 'member',						
 				),
 				'CsnCms\Controller\Category' => array(
 					'index' => 'admin',

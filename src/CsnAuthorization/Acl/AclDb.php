@@ -36,9 +36,9 @@ class AclDb extends ZendAcl {
      */
     public function __construct($entityManager)
     {
-        $roles = $entityManager->findAll('CsnUser\Entity\Role');
-        $resources = $entityManager->findAll('CsnAuthorization\Entity\Resource');
-        $privileges = $entityManager->findAll('CsnAuthorization\Entity\Privilege');
+        $roles = $entityManager->getRepository('CsnUser\Entity\Role')->findAll();
+        $resources = $entityManager->getRepository('CsnAuthorization\Entity\Resource')->findAll();
+        $privileges = $entityManager->getRepository('CsnAuthorization\Entity\Privilege')->findAll();
         
         $this->_addRoles($roles)
              ->_addAclRules($resources, $privileges);
@@ -84,9 +84,9 @@ class AclDb extends ZendAcl {
         
         foreach ($privileges as $privilege) {
             if($privilege->getPermissionAllow()) {
-                $this->allow($privilege->getRole(), $privilege->getResource(), $privilege->getName());
+                $this->allow($privilege->getRole()->getName(), $privilege->getResource()->getName(), $privilege->getName());
             } else {
-                $this->deny($privilege->getRole(), $privilege->getResource(), $privilege->getName());
+                $this->deny($privilege->getRole()->getName(), $privilege->getResource()->getName(), $privilege->getName());
             }
         }
 

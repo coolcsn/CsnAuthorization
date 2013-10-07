@@ -27,4 +27,15 @@ return array(
             )
         )
     ),
+    'service_manager' => array(
+        'factories' => array(
+            'acl' => function ($sm) {
+                $config = $sm->get('config');
+                if ($config['acl']['use_database_storage'])
+                    return new \CsnAuthorization\Acl\AclDb($sm->get('doctrine.entitymanager.orm_default'));
+                else
+                    return new \CsnAuthorization\Acl\Acl($config);
+            }
+        ),
+    ),         
 );
