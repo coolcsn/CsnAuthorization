@@ -35,6 +35,10 @@ Installation
 >### Does it work? ###
 Navigate to a controller/action which has been allowed only for members in your ACL configuration and you should be redirected. Now login (preferably using CsnUser) and attempt that action again. Enjoy :)
 
+Other Notes
+-----------
+Wherever you need the acl object, just call `$serviceLocator->get('acl')`. It will properly construct a *Zend\Permissions\Acl\Acl* object based on the data in the config or the database.
+
 Dependencies
 ------------
 This Module depends on the following Modules:

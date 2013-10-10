@@ -58,7 +58,8 @@ class Module {
 
         if (!$acl->isAllowed($role, $controller, $action)) {
             $response = $e->getResponse();
-            $redirect_route = $sm->get('config')['acl']['redirect_route'];
+            $config = $sm->get('config');
+            $redirect_route = $config['acl']['redirect_route'];
             if(!empty($redirect_route)) {
                 $url = $e->getRouter()->assemble($redirect_route['params'], $redirect_route['options']);
                 $response->getHeaders()->addHeaderLine('Location', $url);
