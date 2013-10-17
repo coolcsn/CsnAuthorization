@@ -37,5 +37,29 @@ return array(
                     return new \CsnAuthorization\Acl\Acl($config);
             }
         ),
-    ),         
+    ),
+    'view_helpers' => array(
+        'factories' => array(
+            'isAllowed' => function($sm) {
+              $sm = $sm->getServiceLocator(); // $sm was the view helper's locator
+              $auth = $sm->get('Zend\Authentication\AuthenticationService');
+              $acl = $sm->get('acl');
+
+              $helper = new \CsnAuthorization\View\Helper\IsAllowed($auth, $acl);
+              return $helper;
+            }
+        ),
+    ),
+    'controller_plugins' => array(
+        'factories' => array(
+            'isAllowed' => function($sm) {
+              $sm = $sm->getServiceLocator(); // $sm was the view helper's locator
+              $auth = $sm->get('Zend\Authentication\AuthenticationService');
+              $acl = $sm->get('acl');
+
+              $plugin = new \CsnAuthorization\Controller\Plugin\IsAllowed($auth, $acl);
+              return $plugin;
+            }
+        ),
+    ),
 );
