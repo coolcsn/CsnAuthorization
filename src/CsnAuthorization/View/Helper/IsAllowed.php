@@ -19,7 +19,7 @@ class IsAllowed extends AbstractHelper {
     protected $auth;
     protected $acl;
 
-    public function __construct($acl) {
+    public function __construct($auth, $acl) {
         $this->auth = $auth;
         $this->acl = $acl;
     }
