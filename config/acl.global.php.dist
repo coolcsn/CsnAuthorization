@@ -29,7 +29,16 @@ return array(
                 //'id' => '1',
             ),
             'options' => array(
-                'name' => 'login', 
+				// We should redirect to an action Controller accessable for everyone. And this is "home" route
+				// There should be a rule in the Acl allowing every role access to the action and controller
+				// Usually this is the homepage action in our case CsnCms\Controller\Index action frontPageAction
+				// the route 'home' = '/' should be overriden by CsnCms
+				// In the case we are using login we enter an endless redirect. If you are loged in in the system as a member
+				// to hide from the navigation the login action the coleagues are using Acl to deny access to login.
+				// The CsnAuthorisation trys to redirect to not accessable action loginAction and it gets redirected back to it.
+				// Much better is to redirect to an action for sure accessable from everyone and there is no better candidate than the homepage
+				// the landing page for the requests to the domain.
+                'name' => 'home', // 'login', 
             ),
         ),
         /**
