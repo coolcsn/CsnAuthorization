@@ -1,48 +1,33 @@
 <?php
 /**
- * File for Acl Class
- *
- * @category  User
- * @package   User_Acl
- * @author    Marco Neumann <webcoder_at_binware_dot_org>
- * @copyright Copyright (c) 2011, Marco Neumann
- * @license   http://binware.org/license/index/type:new-bsd New BSD License
- * http://p0l0.binware.org/index.php/2012/02/18/zend-framework-2-authentication-acl-using-eventmanager/
+ * CsnAuthorization - Coolcsn Zend Framework 2 Authorization Module
+ * 
+ * @link https://github.com/coolcsn/CsnAuthorization for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
+ * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
+ * @author Marco Neumann <webcoder_at_binware_dot_org>
+ * @author Stoyan Cheresharov <stoyan@coolcsn.com>
+ * @author Stoyan Revov <st.revov@gmail.com>
+ * @author Martin Briglia <martin@mgscreativa.com>
  */
 
-/**
- * @namespace
- */
 namespace CsnAuthorization\Acl;
-// namespace User\Acl;
 
-/**
- * @uses Zend\Acl\Acl
- * @uses Zend\Acl\Role\GenericRole
- * @uses Zend\Acl\Resource\GenericResource
- */
-use Zend\Permissions\Acl\Acl as ZendAcl,
-    Zend\Permissions\Acl\Role\GenericRole as Role,
-    Zend\Permissions\Acl\Resource\GenericResource as Resource;
-// use Zend\Acl\Acl as ZendAcl,
-//    Zend\Acl\Role\GenericRole as Role,
-//    Zend\Acl\Resource\GenericResource as Resource;
+use Zend\Permissions\Acl\Acl as ZendAcl;
+use Zend\Permissions\Acl\Role\GenericRole as Role;
+use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
 /**
  * Class to handle Acl
  *
- * This class is for loading ACL defined in a config
+ * Loads ACL definitions from config file
  *
- * @category User
- * @package  User_Acl
- * @copyright Copyright (c) 2011, Marco Neumann
- * @license   http://binware.org/license/index/type:new-bsd New BSD License
  */
 class Acl extends ZendAcl {
     /**
      * Default Role
      */
-    const DEFAULT_ROLE = 'guest';
+    const DEFAULT_ROLE = 'Guest';
 
     /**
      * Constructor
@@ -70,7 +55,7 @@ class Acl extends ZendAcl {
      * Adds Roles to ACL
      *
      * @param array $roles
-     * @return User\Acl
+     * @return CsnAuthorization\Acl\Acl
      */
     protected function _addRoles($roles)
     {
@@ -93,7 +78,7 @@ class Acl extends ZendAcl {
      * Adds Resources to ACL
      *
      * @param $resources
-     * @return User\Acl
+     * @return CsnAuthorization\Acl\Acl
      * @throws \Exception
      */
     protected function _addResources($resources)

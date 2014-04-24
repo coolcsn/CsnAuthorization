@@ -1,32 +1,32 @@
 <?php
 /**
- * Coolcsn Zend Framework 2 Authorization Module
+ * CsnAuthorization - Coolcsn Zend Framework 2 Authorization Module
  * 
  * @link https://github.com/coolcsn/CsnAuthorization for the canonical source repository
  * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
  * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
+ * @author Stoyan Cheresharov <stoyan@coolcsn.com>
  * @author Stoyan Revov <st.revov@gmail.com>
-*/
+ * @author Martin Briglia <martin@mgscreativa.com>
+ */
 
 namespace CsnAuthorization\Acl;
 
-use Zend\Permissions\Acl\Acl as ZendAcl,
-    Zend\Permissions\Acl\Role\GenericRole as Role,
-    Zend\Permissions\Acl\Resource\GenericResource as Resource;
+use Zend\Permissions\Acl\Acl as ZendAcl;
+use Zend\Permissions\Acl\Role\GenericRole as Role;
+use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
 /**
  * Class to handle Acl
  *
- * This class is for loading ACL defined in a database
+ * Loads ACL definitions from database
  *
- * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
- * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
  */
 class AclDb extends ZendAcl {
     /**
      * Default Role
      */
-    const DEFAULT_ROLE = 'guest';
+    const DEFAULT_ROLE = 'Guest';
 
     /**
      * Constructor
@@ -71,7 +71,7 @@ class AclDb extends ZendAcl {
      *
      * @param $resources
      * @param $privileges
-     * @return User\Acl
+     * @return CsnAuthorization\Acl\AclDb
      * @throws \Exception
      */
     protected function _addAclRules($resources, $privileges)

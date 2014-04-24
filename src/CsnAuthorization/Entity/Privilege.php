@@ -1,42 +1,30 @@
 <?php
 /**
- * Coolcsn Zend Framework 2 Authorization Module
+ * CsnAuthorization - Coolcsn Zend Framework 2 Authorization Module
  * 
  * @link https://github.com/coolcsn/CsnAuthorization for the canonical source repository
  * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
  * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
  * @author Stoyan Cheresharov <stoyan@coolcsn.com>
  * @author Stoyan Revov <st.revov@gmail.com>
-*/
+ * @author Martin Briglia <martin@mgscreativa.com>
+ */
 
 namespace CsnAuthorization\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
-use Zend\Form\Annotation; // !!!! Absolutely neccessary
+use Zend\Form\Annotation;
 
 /**
  * Privileges
  *
  * @ORM\Table(name="privilege")
  * @ORM\Entity
- * @Annotation\Name("privilege")
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
+ * @Annotation\Name("Privilege")
+ * @ Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
 class Privilege
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100, nullable=true)
-     * @Annotation\Filter({"name":"StringTrim"})
-     * @Annotation\Validator({"name":"StringLength", "options":{"min":1, "max":30}})
-     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[a-zA-Z][a-zA-Z0-9_ -]{0,100}$/"}})
-     * @Annotation\Attributes({"type":"text"})
-     * @Annotation\Options({"label":"Privilege:"})
-     */
-    protected $name;
-
     /**
      * @var integer
      *
@@ -46,18 +34,42 @@ class Privilege
      * @Annotation\Exclude()
      */
     protected $id;
-    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     * @Annotation\Type("Zend\Form\Element\Text")
+     * @Annotation\Filter({"name":"StripTags"})
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"StringLength", "options":{"encoding":"UTF-8", "min":6, "max":100}})
+     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[a-zA-Z][a-zñA-ZÑ0-9\_\ \-]+$/"}})
+     * @Annotation\Required(true)
+     * @Annotation\Attributes({
+     *   "type":"text",
+     *   "required":"true"
+     * })
+     * @Annotation\Options({"label":"Privilege:"})
+     */
+    protected $name;
+
     /**
      * @var CsnAuthorization\Entity\Resource
      *
      * @ORM\ManyToOne(targetEntity="CsnAuthorization\Entity\Resource")
-     * @ORM\JoinColumn(name="resource_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="resource_id", referencedColumnName="id", nullable=false)
      * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
+     * @Annotation\Filter({"name":"StripTags"})
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"Digits"})
+     * @Annotation\Required(true)
      * @Annotation\Options({
-     * "label":"Resource:",
-     * "empty_option": "Please, choose a resource",
-     * "target_class":"CsnAuthorization\Entity\Resource",
-     * "property": "name"})
+     *   "required":"true",
+     *   "empty_option": "Select Resource",
+     *   "target_class":"CsnAuthorization\Entity\Resource",
+     *   "property": "name",
+     *   "label":"Resource:"
+     * })
      */
     protected $resource;
     
@@ -67,21 +79,31 @@ class Privilege
     * @ORM\ManyToOne(targetEntity="CsnUser\Entity\Role")
     * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=false)
     * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
+    * @Annotation\Filter({"name":"StripTags"})
+    * @Annotation\Filter({"name":"StringTrim"})
+    * @Annotation\Validator({"name":"Digits"})
+    * @Annotation\Required(true)
     * @Annotation\Options({
-    * "label":"Role:",
-    * "empty_option": "Please, choose a role",
-    * "target_class":"CsnUser\Entity\Role",
-    * "property": "name"})
+    *   "required":"true",
+    *   "empty_option": "Allow User Role",
+    *   "target_class":"CsnUser\Entity\Role",
+    *   "property": "name",
+    *   "label":"Role:"
+    * })
     */
     protected $role;
     
     /**
      * @var boolean
      *
-     * @ORM\Column(name="permission_allow", type="boolean", nullable=false)
+     * @ORM\Column(name="allow", type="boolean", nullable=false)
      * @Annotation\Type("Zend\Form\Element\Checkbox")
+     * @Annotation\Filter({"name":"StripTags"})
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"Digits"})
      * @Annotation\Options({
-     * "label":"Allow permission:"})
+     *   "label":"Allow?:"
+     * })
      */
     protected $permissionAllow = true;
 
@@ -185,6 +207,5 @@ class Privilege
     public function getPermissionAllow()
     {
         return $this->permissionAllow;
-    }
-    
+    }    
 }
