@@ -16,12 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Zend\Form\Annotation;
 
 /**
- * Resources
+ * Doctrine ORM implementation of Resource entity
  *
- * @ORM\Table(name="resource")
  * @ORM\Entity
+ * @ORM\Table(name="`resource`")
  * @Annotation\Name("Resource")
- * @ Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
 class Resource
 {
@@ -38,20 +37,36 @@ class Resource
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     * @ORM\Column(name="name", type="string", length=100, nullable=false, unique=true)
      * @Annotation\Type("Zend\Form\Element\Text")
      * @Annotation\Filter({"name":"StripTags"})
      * @Annotation\Filter({"name":"StringTrim"})
-     * @Annotation\Validator({"name":"StringLength", "options":{"encoding":"UTF-8", "min":6, "max":100}})
+     * @Annotation\Validator({"name":"StringLength", "options":{"encoding":"UTF-8", "min":3, "max":100}})
+     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[a-zA-Z][a-zñA-ZÑ0-9\_\-\\]+$/"}})
+     * @Annotation\Required(true)
+     * @Annotation\Attributes({
+     *   "type":"text",
+     *   "required":"true"
+     * })
+     */
+    protected $name;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=100, nullable=false)
+     * @Annotation\Type("Zend\Form\Element\Text")
+     * @Annotation\Filter({"name":"StripTags"})
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"StringLength", "options":{"encoding":"UTF-8", "min":3, "max":100}})
      * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[a-zA-Z][a-zñA-ZÑ0-9\_\ \-]+$/"}})
      * @Annotation\Required(true)
      * @Annotation\Attributes({
      *   "type":"text",
      *   "required":"true"
      * })
-     * @Annotation\Options({"label":"Resource:"})
      */
-    protected $name;
+    protected $description;
 
     /**
      * Get id
@@ -84,5 +99,28 @@ class Resource
     public function getName()
     {
         return $this->name;
+    }
+    
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Resource
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+    
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

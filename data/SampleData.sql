@@ -1,8 +1,32 @@
 --
+-- Dumping data for table `resource`
+--
+
+INSERT INTO `resource` (`id`, `name`, `description`) VALUES
+(1, 'all', 'all'),
+(2, 'Public Resource', 'Public Resource'),
+(3, 'Private Resource', 'Private Resource'),
+(4, 'Admin Resource', 'Admin Resource'),
+(5, 'Application\\Controller\\Index', 'Application Index'),
+(6, 'CsnUser\\Controller\\Index', 'CsnUser Index'),
+(7, 'CsnUser\\Controller\\Registration', 'CsnUser Registration'),
+(8, 'CsnUser Admin', 'CsnUser\\Controller\\Admin'),
+(9, 'CsnAuthorization\\Controller\\RoleAdmin', 'CsnAuthorization Role Admin.'),
+(10, 'CsnAuthorization\\Controller\\ResourceAdmin', 'CsnAuthorization Resource Admin'),
+(11, 'CsnCms\\Controller\\Index', 'CsnCms Index'),
+(12, 'CsnCms\\Controller\\Article', 'CsnCms Article'),
+(13, 'CsnCms\\Controller\\Translation', 'CsnCms Translation'),
+(14, 'CsnCms\\Controller\\Comment', 'CsnCms Comment'),
+(15, 'CsnCms\\Controller\\Category', 'CsnCms Category'),
+(16, 'CsnFileManager\\Controller\\Index', 'CsnFileManager Index'),
+(17, 'Zend', 'Zend'),
+(18, 'DoctrineORMModule\\Yuml\\YumlController', 'DoctrineORMModule Yuml Graph Index');
+
+--
 -- Dumping data for table `privilege`
 --
 
-INSERT INTO `privilege` (`id`, `resource_id`, `role_id`, `name`, `permission_allow`) VALUES
+INSERT INTO `privilege` (`id`, `resource_id`, `role_id`, `name`, `allow`) VALUES
 (1, 1, 1, 'view', 1),
 (2, 2, 1, 'view', 1),
 (3, 3, 2, 'view', 1),
@@ -25,36 +49,23 @@ INSERT INTO `privilege` (`id`, `resource_id`, `role_id`, `name`, `permission_all
 (20, 8, 3, 'editUser', 1),
 (21, 8, 3, 'deleteUser', 1),
 (22, 8, 3, 'setUserState', 1),
-(23, 9, 1, 'view', 1),
-(24, 10, 1, 'view', 1),
-(25, 10, 2, 'vote', 1),
+(23, 9, 3, 'index', 1),
+(24, 9, 3, 'createRole', 1),
+(25, 9, 3, 'editRole', 1),
 (26, 10, 3, 'index', 1),
-(27, 10, 3, 'add', 1),
-(28, 10, 3, 'edit', 1),
-(29, 10, 3, 'delete', 1),
-(30, 11, 3, 'view', 1),
-(31, 12, 2, 'view', 1),
-(32, 13, 3, 'view', 1),
-(33, 14, 2, 'view', 1),
-(34, 15, 2, 'uri', 1);
-
---
--- Dumping data for table `resource`
---
-
-INSERT INTO `resource` (`id`, `name`) VALUES
-(1, 'all'),
-(2, 'Public Resource'),
-(3, 'Private Resource'),
-(4, 'Admin Resource'),
-(5, 'Application\\Controller\\Index'),
-(6, 'CsnUser\\Controller\\Index'),
-(7, 'CsnUser\\Controller\\Registration'),
-(8, 'CsnUser\\Controller\\Admin'),
-(9, 'CsnCms\\Controller\\Index'),
-(10, 'CsnCms\\Controller\\Article'),
-(11, 'CsnCms\\Controller\\Translation'),
-(12, 'CsnCms\\Controller\\Comment'),
-(13, 'CsnCms\\Controller\\Category'),
-(14, 'CsnFileManager\\Controller\\Index'),
-(15, 'Zend');
+(27, 10, 3, 'createResource', 1),
+(28, 10, 3, 'editResource', 1),
+(29, 10, 3, 'deleteResource', 1),
+(30, 11, 1, 'view', 1),
+(31, 12, 1, 'view', 1),
+(32, 12, 2, 'vote', 1),
+(33, 12, 3, 'index', 1),
+(34, 12, 3, 'add', 1),
+(35, 12, 3, 'edit', 1),
+(36, 12, 3, 'delete', 1),
+(37, 13, 3, 'view', 1),
+(38, 14, 2, 'view', 1),
+(39, 15, 3, 'view', 1),
+(40, 16, 2, 'view', 1),
+(41, 17, 2, 'uri', 1),
+(42, 18, 1, 'index', 1);

@@ -9,10 +9,54 @@
  * @author Stoyan Revov <st.revov@gmail.com>
  * @author Martin Briglia <martin@mgscreativa.com>
  */
+
 return array(
+    'controllers' => array(
+        'invokables' => array(
+            'CsnAuthorization\Controller\RoleAdmin' => 'CsnAuthorization\Controller\RoleAdminController',
+            'CsnAuthorization\Controller\ResourceAdmin' => 'CsnAuthorization\Controller\ResourceAdminController',
+        ),
+    ),
+    'router' => array(
+        'routes' => array(
+            'role-admin' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/role/admin[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'CsnAuthorization\Controller\RoleAdmin',
+                        'action' => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+            'resource-admin' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/resource/admin[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'CsnAuthorization\Controller\ResourceAdmin',
+                        'action' => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+        ),
+    ),
     'service_manager' => array(
         'factories' => array(
             'acl' => 'CsnAuthorization\Service\Factory\AclFactory',
+            'csnauthorization_role_form' => 'CsnAuthorization\Service\Factory\RoleFormFactory',
+            'csnauthorization_resource_form' => 'CsnAuthorization\Service\Factory\ResourceFormFactory',
+            
         ),
     ),
     'view_helpers' => array(

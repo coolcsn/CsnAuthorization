@@ -16,12 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Zend\Form\Annotation;
 
 /**
- * Privileges
+ * Doctrine ORM implementation of Privilege entity
  *
- * @ORM\Table(name="privilege")
+ * @ORM\Table(name="`privilege`")
  * @ORM\Entity
  * @Annotation\Name("Privilege")
- * @ Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
 class Privilege
 {
