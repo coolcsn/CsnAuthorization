@@ -1,0 +1,134 @@
+<?php
+/**
+ * CsnAuthorization - Coolcsn Zend Framework 2 Authorization Module
+ * 
+ * @link https://github.com/coolcsn/CsnAuthorization for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
+ * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
+ * @author Stoyan Cheresharov <stoyan@coolcsn.com>
+ * @author Stoyan Revov <st.revov@gmail.com>
+ * @author Martin Briglia <martin@mgscreativa.com>
+ */
+
+$flashMessenger = $this->flashMessenger()
+  ->setMessageOpenFormat(
+  '<div%s>
+     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+         &times;
+     </button>
+     <ul><li>')
+  ->setMessageSeparatorString('</li><li>')
+  ->setMessageCloseString('</li></ul></div>');
+
+?>
+
+<div class="container wrapper">
+ <?php echo $flashMessenger->render('error',   array('alert', 'alert-dismissable', 'alert-danger')); ?>
+ <?php echo $flashMessenger->render('info',    array('alert', 'alert-dismissable', 'alert-info')); ?>
+ <?php echo $flashMessenger->render('default', array('alert', 'alert-dismissable', 'alert-warning')); ?>
+ <?php echo $flashMessenger->render('success', array('alert', 'alert-dismissable', 'alert-success')); ?>
+</div>
+<h1>
+  <?php echo $this->translate('Roles Admin Table') ?>
+</h1>
+<a class="btn btn-success" href="<?php echo $this->url('role-admin', array('action' => 'create-role')); ?>">
+  <?php echo $this->translate('Create Role') ?>
+</a>
+
+<?php 
+
+function parseAndPrintTree($tree, $root = null, $count = 0) {
+    if(!is_null($tree) && count($tree) > 0) {
+        //$return = '<ul>';
+        $local_count = $count;
+        foreach($tree as $child => $parent) {
+            if($parent[0][0][0] == $root) {
+                $url = $tree[$child][1];
+                unset($tree[$child]);
+                //$return .= '<li>';
+                $dashes = '';
+                for($i=0; $i<$local_count; $i++)
+                  $dashes .= '--';
+                
+                $return .= $dashes.'<a class="name" href="'.$url.'">'.$child.'</a>'.
+                                   '<br/>'.parseAndPrintTree($tree, $child, ++$count);
+                //$return .= '</li>';
+            }
+        }
+        //$return .= '</ul>';
+        return empty($return) ? null : $return;
+    }
+}
+
+$tree = array();
+foreach ($roles as $role) {
+    $parents = $role->getParents()->toArray();
+    $parentNames = array();
+    foreach($parents as $parent) {
+        $parentNames[] = [$parent->getName(), $this->url('role-admin', array('action' => 'edit-role', 'id' => $role->getId()))];
+    }
+    $tree[$role->getName()] = [$parentNames, $this->url('role-admin', array('action' => 'edit-role', 'id' => $role->getId()))];
+}
+
+?>
+<div>
+
+<?php
+echo parseAndPrintTree($tree);
+?>
+
+</div>
+<?php 
+exit();
+
+?>
+
+
+
+?>
+
+
+
+<hr />
+<div class="table-responsive">
+  <table class="users-list table table-striped table-condensed table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+          <th><?php echo $this->translate('Name') ?></th>
+          <!-- <th><?php //echo $this->translate('Email') ?></th>
+          <th><?php //echo $this->translate('State') ?></th>
+          <th><?php //echo $this->translate('Actions') ?></th>-->
+        </tr>
+      </thead>
+      <?php
+        /*foreach ($roles as $role) {
+      ?>
+      <tr>
+        <td><?php  echo $role->getId(); ?></td>
+        <td>
+          <a class="name" href="<?php echo $this->url('role-admin', array('action' => 'edit-role', 'id' => $role->getId())); ?>">
+            <?php echo $role->getName() ?>
+          </a>
+        </td>
+        <!-- <td><?php  //echo $user->getEmail(); ?></td>
+        <td>
+          <?php //echo $this->translate($user->getState()->getState()) ?>
+        </td> 
+        <td class="delete-cell">
+          <a href="<?php //echo $this->url('user-admin', array('action'=>'set-user-state', 'id' => $user->getId(), 'state' => ($user->getState()->getId() == 1) ? 2 : 1)) ?>">
+            <?php //echo $this->translate(($user->getState()->getId() == 1) ? 'Enable' : 'Disable') ?>
+          </a> | 
+          <a href="<?php //echo $this->url('user-admin', array('action'=>'edit-user', 'id' => $user->getId()));?>">
+            <?php //echo $this->translate('Edit') ?>
+          </a> | 
+          <a href="<?php //echo $this->url('user-admin', array('action'=>'delete-user', 'id' => $user->getId()));?>" onclick="return confirm('<?php echo $this->translate('Do you really want to delete this user?') ?>')">
+            <?php //echo $this->translate('Delete') ?>
+          </a>
+        </td>-->
+      </tr>
+      <?php
+      }*/
+      ?>
+  </table>
+</div>
