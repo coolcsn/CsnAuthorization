@@ -1,0 +1,90 @@
+<?php
+/**
+ * CsnAuthorization - Coolcsn Zend Framework 2 Authorization Module
+ * 
+ * @link https://github.com/coolcsn/CsnAuthorization for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
+ * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
+ * @author Stoyan Cheresharov <stoyan@coolcsn.com>
+ * @author Stoyan Revov <st.revov@gmail.com>
+ * @author Martin Briglia <martin@mgscreativa.com>
+ *
+ * CsnAuthorization Configuration
+ *
+ * If you have a ./config/autoload/ directory set up for your project, you can
+ * drop this config file in it and change the values as you wish.
+ * 
+ * The idea of this config file is to define some basic ACL settings and to give the developer
+ * the chance to define some gereric rules that not need to get loaded from database, like, rules for
+ * Application standar skeleton app module or Zend Developer Tools Doctrine ORM Module YumlController for drawing
+ * Doctrine entities dependency graph.
+ * 
+ * For the more application speceific rules definition, CsnAuthorization provides the Roles/Privileges admin panel.
+ */
+return array(
+    'csnauthorization' => array(
+        /**
+         * Set the default role name for not logged in users
+         */
+        'default_role' => 'guest',
+        /**
+         * The route where users are redirected if access is denied.
+         * Set to empty array to disable redirection.
+         */        
+        'redirect_route' => array(
+            'params' => array(
+                //'controller' => 'my_controller',
+                //'action' => 'my_action',
+                //'id' => '1',
+            ),
+            'options' => array(
+               /**
+                * We should redirect to an action Controller accessable for
+                * everyone. And this is "home" route.
+                * There should be a rule in the Acl allowing every role access
+                * to the action and controller, usually this is the homepage
+                * action in our case CsnCms\Controller\Index action frontPageAction
+                * the route 'home' = '/' should be overriden by CsnCms.
+                * In the case we are using login we enter an endless redirect.
+                * If you are loged in the system as a manager to hide from the
+                * navigation the login action the coleagues are using Acl to
+                * deny access to login.
+                * The CsnAuthorisation tries to redirect to not accessable action
+                * loginAction and it gets redirected back to it. Much better is
+                * to redirect to an action for sure accessable from everyone and
+                * there is no better candidate than the homepage the landing page
+                * for the requests to the domain.
+                */
+                'name' => 'home', // 'login', 
+            ),
+        ),
+        /**
+         * Basic ACL, it should remain as little as possible 
+         */
+        'roles' => array(
+            'guest' => null,
+            'user' => 'guest',
+            'manager' => 'user',
+            'admin' => 'manager',
+        ),
+        'resources' => array(
+            'allow' => array(
+                /**
+                 * At least all users must be able to see Zend Skeleton Application
+                 * standard Application module index page.
+                 */
+                'Application\Controller\Index' => array(
+                    'index' => 'guest',
+                ),
+                /**
+                 * This rule is for Zend Developer Tools Doctrine ORM Module YumlController for drawing
+                 * Doctrine entities dependency graph. You can remove it if you don't plan to use 
+                 * Zend Developer Tools, or Doctrine ORM Module YumlController drawing function.
+                 */
+                'DoctrineORMModule\Yuml\YumlController' => array(
+                    'index' => 'guest',
+                ),
+            ),
+        ),
+    ),
+);
