@@ -13,14 +13,12 @@
 namespace CsnAuthorization\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Form\Annotation;
 
 /**
  * Doctrine ORM implementation of Privilege entity
  *
  * @ORM\Table(name="`privilege`")
  * @ORM\Entity
- * @Annotation\Name("Privilege")
  */
 class Privilege
 {
@@ -30,104 +28,29 @@ class Privilege
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Annotation\Exclude()
      */
     protected $id;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="resource", type="string", length=100, nullable=false)
+     */
+    protected $resource;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100, nullable=false)
-     * @Annotation\Type("Zend\Form\Element\Text")
-     * @Annotation\Filter({"name":"StripTags"})
-     * @Annotation\Filter({"name":"StringTrim"})
-     * @Annotation\Validator({"name":"StringLength", "options":{"encoding":"UTF-8", "min":6, "max":100}})
-     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[a-zA-Z][a-zñA-ZÑ0-9\_\ \-]+$/"}})
-     * @Annotation\Required(true)
-     * @Annotation\Attributes({
-     *   "type":"text",
-     *   "required":"true"
-     * })
-     * @Annotation\Options({"label":"Privilege:"})
+     * @ORM\Column(name="privilege", type="string", length=100, nullable=false)
      */
-    protected $name;
-
-    /**
-     * @var CsnAuthorization\Entity\Resource
-     *
-     * @ORM\ManyToOne(targetEntity="CsnAuthorization\Entity\Resource")
-     * @ORM\JoinColumn(name="resource_id", referencedColumnName="id", nullable=false)
-     * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
-     * @Annotation\Filter({"name":"StripTags"})
-     * @Annotation\Filter({"name":"StringTrim"})
-     * @Annotation\Validator({"name":"Digits"})
-     * @Annotation\Required(true)
-     * @Annotation\Options({
-     *   "required":"true",
-     *   "empty_option": "Select Resource",
-     *   "target_class":"CsnAuthorization\Entity\Resource",
-     *   "property": "name",
-     *   "label":"Resource:"
-     * })
-     */
-    protected $resource;
-    
-    /**
-    * @var CsnUser\Entity\Role
-    *
-    * @ORM\ManyToOne(targetEntity="CsnUser\Entity\Role")
-    * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=false)
-    * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
-    * @Annotation\Filter({"name":"StripTags"})
-    * @Annotation\Filter({"name":"StringTrim"})
-    * @Annotation\Validator({"name":"Digits"})
-    * @Annotation\Required(true)
-    * @Annotation\Options({
-    *   "required":"true",
-    *   "empty_option": "Allow User Role",
-    *   "target_class":"CsnUser\Entity\Role",
-    *   "property": "name",
-    *   "label":"Role:"
-    * })
-    */
-    protected $role;
-    
+    protected $privilege;
+   
     /**
      * @var boolean
      *
-     * @ORM\Column(name="allow", type="boolean", nullable=false)
-     * @Annotation\Type("Zend\Form\Element\Checkbox")
-     * @Annotation\Filter({"name":"StripTags"})
-     * @Annotation\Filter({"name":"StringTrim"})
-     * @Annotation\Validator({"name":"Digits"})
-     * @Annotation\Options({
-     *   "label":"Allow?:"
-     * })
+     * @ORM\Column(name="is_allowed", type="boolean", nullable=false)
      */
-    protected $permissionAllow = true;
-
-    /**
-     * Set name
-     *
-     * @param  string   $name
-     * @return Privilege
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+    protected $isAllowed = false;
 
     /**
      * Get id
@@ -142,7 +65,7 @@ class Privilege
     /**
      * Set resource
      *
-     * @param  CsnAuthorization\Entity\Resource $resource
+     * @param string $resource
      * @return CsnAuthorization\Entity\Privilege
      */
     public function setResource($resource)
@@ -155,7 +78,7 @@ class Privilege
     /**
      * Get resource
      *
-     * @return CsnAuthorization\Entity\Resource
+     * @return string
      */
     public function getResource()
     {
@@ -163,48 +86,48 @@ class Privilege
     }
     
     /**
-     * Set role
+     * Set privilege
      *
-     * @param  Role $role
-     * @return CsnAuthorization\Entity\Privilege
+     * @param string $privilege
+     * @return Privilege
      */
-    public function setRole($role)
+    public function setPrivilege($privilege)
     {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return Role
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
+        $this->privilege = $privilege;
     
-    /**
-     * Set permissionAllow
-     *
-     * @param  boolean $permissionAllow
-     * @return CsnAuthorization\Entity\Privilege
-     */
-    public function setPermissionAllow($permissionAllow)
-    {
-        $this->permissionAllow = $permissionAllow;
-
         return $this;
     }
     
     /**
-     * Get permissionAllow
+     * Get privilege
+     *
+     * @return string
+     */
+    public function getPrivilege()
+    {
+        return $this->privilege;
+    }
+    
+    /**
+     * Set is allowed
+     *
+     * @param  boolean $isAllowed
+     * @return CsnAuthorization\Entity\Privilege
+     */
+    public function setIsAllowed($isAllowed)
+    {
+        $this->isAllowed = $isAllowed;
+
+        return $this;
+    }
+    
+    /**
+     * Get is allowed
      *
      * @return boolean
      */
-    public function getPermissionAllow()
+    public function getIsAllowed()
     {
-        return $this->permissionAllow;
+        return $this->isAllowed;
     }    
 }

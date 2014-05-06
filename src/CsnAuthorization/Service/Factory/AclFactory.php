@@ -14,19 +14,12 @@ namespace CsnAuthorization\Service\Factory;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use CsnAuthorization\Acl\AclDb;
 use CsnAuthorization\Acl\Acl;
 
 class AclFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get('config');
-
-        if ($config['acl']['use_database_storage']) {
-            return new AclDb($serviceLocator->get('doctrine.entitymanager.orm_default'));
-        } else {
-            return new Acl($config);
-        }
+      return new Acl($serviceLocator);
     }
 }

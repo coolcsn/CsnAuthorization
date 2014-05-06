@@ -40,37 +40,12 @@ class RoleAdminController extends AbstractActionController
     /**
      * Index action
      *
-     * Method to show a role list
+     * Method to show the role list
      *
      * @return Zend\View\Model\ViewModel
      */
     public function indexAction()
     {
-        if(!$this->identity()) {
-            $redirect_route = $config['acl']['redirect_route'];
-            if(!empty($redirect_route)) {
-                $url = $event->getRouter()->assemble($redirect_route['params'], $redirect_route['options']);
-                $this->redirect()->toUrl($url);
-                /*$response->setHeaders($response->getHeaders()->addHeaderLine('Location', $url));
-                $response->setStatusCode(302);
-                $response->sendHeaders();
-                exit();*/
-            } else {
-                $response->setStatusCode(403);
-                $response->setContent('
-                    <html>
-                        <head>
-                            <title>403 Forbidden</title>
-                        </head>
-                        <body>
-                            <h1>403 Forbidden</h1>
-                        </body>
-                    </html>'
-                );
-                return $response;
-            }
-        }
-      
         $roles = $this->getEntityManager()->getRepository('CsnUser\Entity\Role')->findall();
         return new ViewModel(array('roles' => $roles));
     }    
@@ -78,11 +53,11 @@ class RoleAdminController extends AbstractActionController
     /**
      * Create action
      *
-     * Method to create an user
+     * Method to create a new Role
      *
      * @return Zend\View\Model\ViewModel
      */
-    /*public function createUserAction()
+    /*public function createRoleAction()
     {
         if(!$this->identity()) {
           return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
@@ -126,11 +101,11 @@ class RoleAdminController extends AbstractActionController
     /**
      * Edit action
      *
-     * Method to update an user
+     * Method to update a Role
      *
      * @return Zend\View\Model\ViewModel
      */
-    /*public function editUserAction()
+    /*public function editRoleAction()
     {
         if(!$this->identity()) {
           return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
@@ -185,11 +160,11 @@ class RoleAdminController extends AbstractActionController
     /**
      * Delete action
      *
-     * Method to delete an user from his ID
+     * Method to delete an Role from his ID
      *
      * @return Zend\View\Model\ViewModel
      */
-    /*public function deleteUserAction()
+    /*public function deleteRoleAction()
     {
         if(!$this->identity()) {
           return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
@@ -221,47 +196,6 @@ class RoleAdminController extends AbstractActionController
         return $this->redirect()->toRoute('user-admin');
     }*/
     
-    /**
-     * Disable action
-     *
-     * Method to disable an user from his ID
-     *
-     * @return Zend\View\Model\ViewModel
-     */
-    /*public function setUserStateAction()
-    {
-        if(!$this->identity()) {
-          return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
-        }
-      
-        $id = (int) $this->params()->fromRoute('id', 0);
-        $state = (int) $this->params()->fromRoute('state', -1);
-        
-        if ($id === 0 || $state === -1) {
-            $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('User ID or state invalid'));
-            return $this->redirect()->toRoute('user-admin');
-        }
-         
-        try {
-            $entityManager = $this->getEntityManager();
-            $user = $entityManager->getRepository('CsnUser\Entity\User')->find($id);
-            $user->setState($entityManager->find('CsnUser\Entity\State', $state));
-            $entityManager->persist($user);
-            $entityManager->flush();
-            $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('User Updated Successfully'));
-        }
-        catch (\Exception $e) {
-          return $this->getServiceLocator()->get('csnuser_error_view')->createErrorView(
-              $this->getTranslatorHelper()->translate('Something went wrong during user delete process! Please, try again later.'),
-              $e,
-              $this->getOptions()->getDisplayExceptions(),
-              false
-          );
-        }
-      
-        return $this->redirect()->toRoute('user-admin');
-    }*/
-
     /**
      * get entityManager
      *
