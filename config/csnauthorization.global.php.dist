@@ -16,10 +16,11 @@
  * 
  * The idea of this config file is to define some basic ACL settings and to give the developer
  * the chance to define some gereric rules that not need to get loaded from database, like, rules for
- * Application standar skeleton app module or Zend Developer Tools Doctrine ORM Module YumlController for drawing
+ * Application standard skeleton app module or Zend Developer Tools Doctrine ORM Module YumlController for drawing
  * Doctrine entities dependency graph.
  * 
- * For the more application speceific rules definition, CsnAuthorization provides the Roles/Privileges admin panel.
+ * For the more application speceific rules definition, CsnAuthorization provides the Roles admin panel,
+ * that may be tweaked for specific module ACL options.
  */
 return array(
     'csnauthorization' => array(
@@ -28,38 +29,7 @@ return array(
          */
         'default_role' => 'guest',
         /**
-         * The route where users are redirected if access is denied.
-         * Set to empty array to disable redirection.
-         */        
-        'redirect_route' => array(
-            'params' => array(
-                //'controller' => 'my_controller',
-                //'action' => 'my_action',
-                //'id' => '1',
-            ),
-            'options' => array(
-               /**
-                * We should redirect to an action Controller accessable for
-                * everyone. And this is "home" route.
-                * There should be a rule in the Acl allowing every role access
-                * to the action and controller, usually this is the homepage
-                * action in our case CsnCms\Controller\Index action frontPageAction
-                * the route 'home' = '/' should be overriden by CsnCms.
-                * In the case we are using login we enter an endless redirect.
-                * If you are loged in the system as a manager to hide from the
-                * navigation the login action the coleagues are using Acl to
-                * deny access to login.
-                * The CsnAuthorisation tries to redirect to not accessable action
-                * loginAction and it gets redirected back to it. Much better is
-                * to redirect to an action for sure accessable from everyone and
-                * there is no better candidate than the homepage the landing page
-                * for the requests to the domain.
-                */
-                'name' => 'home', // 'login', 
-            ),
-        ),
-        /**
-         * Basic ACL, it should remain as little as possible 
+         * Basic ACL, it should remain as tiny as possible 
          */
         'roles' => array(
             'guest' => null,
@@ -70,8 +40,23 @@ return array(
         'resources' => array(
             'allow' => array(
                 /**
+                 *  ACL for CsnCms articles
+                 */
+                'all' => array(
+                    'view'  => 'guest',
+                ),
+                'Public Resource' => array(
+                    'view'  => 'guest',
+                ),
+                'Private Resource' => array(
+                    'view'  => 'member',
+                ),
+                'Admin Resource' => array(
+                    'view'  => 'admin',
+                ), 
+                /**
                  * At least all users must be able to see Zend Skeleton Application
-                 * standard Application module index page.
+                 * standard home page.
                  */
                 'Application\Controller\Index' => array(
                     'index' => 'guest',
