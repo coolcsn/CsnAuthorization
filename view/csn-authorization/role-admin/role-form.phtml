@@ -1,0 +1,83 @@
+<?php
+/**
+ * CsnAuthorization - Coolcsn Zend Framework 2 Authorization Module
+ * 
+ * @link https://github.com/coolcsn/CsnAuthorization for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
+ * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
+ * @author Stoyan Cheresharov <stoyan@coolcsn.com>
+ * @author Stoyan Revov <st.revov@gmail.com>
+ * @author Martin Briglia <martin@mgscreativa.com>
+ */
+
+$form = $this->form;
+
+/**
+ *
+ * Set form fields classes and placeholders here
+ *
+ */
+
+$form->setAttributes(array(
+    'class' => 'form'
+));
+
+$form->get('name')->setAttributes(array(
+    'required' => 'true',
+    'class' => 'form-control input-lg', 
+    'placeholder' => $this->translate('Role Name')
+));
+
+$form->get('roleDescription')->setAttributes(array(
+    'required' => 'false',
+    'class' => 'form-control input-lg', 
+    'placeholder' => $this->translate('Role Description')
+));
+
+$form->get('submit')->setAttributes(array(
+    'class' => 'btn btn btn-success btn-lg', 
+));
+$form->prepare();
+?>
+<div class="jumbotron">
+  <h2><?php echo $this->headerLabel?></h2>
+    <div class="container" id="wrap">
+	  <div class="row">
+        <div class="col-md-12">
+          <?php echo $this->form()->openTag($form); ?>
+            <?php
+              $element = $form->get('name');
+              echo $this->formElement($element);
+              echo $this->formElementErrors($element);
+            ?>
+            <?php
+              $element = $form->get('roleDescription');
+              echo $this->formElement($element);
+              echo $this->formElementErrors($element);
+            ?>
+            <div class="row">
+              <div class="col-sm-12"> 
+                <!-- CsnUser Privileges Fieldset-->
+                <?php 
+                  echo $this->partial('csn-authorization/role-admin/module-privilege/csnuser');
+                ?>             
+              </div>
+                <div class="col-sm-12"> 
+                <!-- CsnAuthorization Privileges Fieldset-->
+                <?php 
+                  echo $this->partial('csn-authorization/role-admin/module-privilege/csnauthorization');
+                ?>             
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12"> 
+                <?php echo $this->formRow($form->get('submit'))?>              
+              </div>
+            </div>
+          <?php 
+            echo $this->formRow($form->get('csrf'));
+            echo $this->form()->closeTag();
+          ?>         
+      </div>            
+    </div>
+</div>

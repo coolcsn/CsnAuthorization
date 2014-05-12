@@ -15,7 +15,14 @@ namespace CsnAuthorization\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
+
+use CsnAuthorization\Form\RoleForm;
+use CsnAuthorization\Form\RoleFilter;
+use CsnAuthorization\Model\Privilege as PrivilegeModel;
+
 use CsnUser\Entity\Role;
+
 
 /**
  * Role Admin controller
@@ -31,11 +38,6 @@ class RoleAdminController extends AbstractActionController
      * @var Zend\Mvc\I18n\Translator
      */
     protected $translatorHelper;
-    
-    /**
-     * @var Zend\Form\Form
-     */
-    protected $roleFormHelper;
     
     /**
      * Index action
@@ -57,47 +59,45 @@ class RoleAdminController extends AbstractActionController
      *
      * @return Zend\View\Model\ViewModel
      */
-    /*public function createRoleAction()
+    public function createRoleAction()
     {
-        if(!$this->identity()) {
-          return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
+        $entityManager = $this->getEntityManager();
+        $role = new Role;
+        $form = new RoleForm;     
+           
+        $form->setAttributes(array(
+            'action' => $this->url()->fromRoute('role-admin', array('action' => 'create-role')),
+            'name' => 'create-role'
+             ));        
+        $form->get('submit')->setAttributes(array(
+                'value' => $this->getTranslatorHelper()->translate('Create Role'),
+             ));
+        $form->setHydrator(new DoctrineHydrator($entityManager));
+        $form->bind($role);
+    
+        if($this->getRequest()->isPost()) {
+            $form->setData($this->getRequest()->getPost());
+            $form->setInputFilter(new RoleFilter($entityManager));
+            if($form->isValid()) {
+                $role->setPrivilege(PrivilegeModel::createPrivilegeArray($form->getData()->getPrivilege(), $role));
+                $entityManager->persist($role);
+                $entityManager->flush();
+                $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('Role Created Successfully'));
+                return $this->redirect()->toRoute('role-admin');
+            } else {
+                $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('Something went wrong on Role creation'));
+                return $this->redirect()->toRoute('role-admin');
+            }
         }
-      
-        try {
-            $user = new User;
-            
-            $form = $this->getRoleFormHelper()->createUserForm($user, 'CreateUser');
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-                $form->setValidationGroup('username', 'email', 'firstName', 'lastName', 'password', 'passwordVerify', 'language', 'state', 'role', 'question', 'answer', 'csrf');
-                $form->setData($request->getPost());
-                if ($form->isValid()) {
-                    $entityManager = $this->getEntityManager();
-                    $user->setEmailConfirmed(false);
-                    $user->setRegistrationDate(new \DateTime());
-                    $user->setRegistrationToken(md5(uniqid(mt_rand(), true)));
-                    $user->setPassword(UserCredentialsService::encryptPassword($user->getPassword()));
-                    $entityManager->persist($user);
-                    $entityManager->flush();
-                    $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('User created Successfully'));
-                    return $this->redirect()->toRoute('user-admin');                                        
-                }
-            }        
-        }
-        catch (\Exception $e) {
-            return $this->getServiceLocator()->get('csnuser_error_view')->createErrorView(
-                $this->getTranslatorHelper()->translate('Something went wrong during user creation! Please, try again later.'),
-                $e,
-                $this->getOptions()->getDisplayExceptions(),
-                false
-            );
-        }
-        
-        $viewModel = new ViewModel(array('form' => $form));
-        $viewModel->setTemplate('csn-user/admin/new-user-form');
-        return $viewModel;
-    }*/
 
+        $viewModel = new ViewModel(array(
+            'form' => $form,
+            'headerLabel' => $this->getTranslatorHelper()->translate('Create Role'),
+        ));
+        $viewModel->setTemplate('csn-authorization/role-admin/role-form');
+        return $viewModel;
+    }
+    
     /**
      * Edit action
      *
@@ -105,57 +105,55 @@ class RoleAdminController extends AbstractActionController
      *
      * @return Zend\View\Model\ViewModel
      */
-    /*public function editRoleAction()
+    public function editRoleAction()
     {
-        if(!$this->identity()) {
-          return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
-        }
-      
-        try {
-            $id = (int) $this->params()->fromRoute('id', 0);
-    
-            if ($id == 0) {
-                $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('User ID invalid'));
-                return $this->redirect()->toRoute('user-admin');
-            }
-            
-            $entityManager = $this->getEntityManager();
-            $user = $entityManager->getRepository('CsnUser\Entity\User')->find($id);
-            
-            $form = $this->getRoleFormHelper()->createUserForm($user, 'EditUser');
-            
-            $form->setAttributes(array(
-                'action' => $this->url()->fromRoute('user-admin', array('action' => 'edit-user', 'id' => $id)),
-            ));
-              	
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-                $form->setValidationGroup('username', 'email', 'firstName', 'lastName', 'language', 'state', 'role', 'question', 'answer', 'csrf');
-                $form->setData($request->getPost());
-                if ($form->isValid()) {
-                    $entityManager->persist($user);
-                    $entityManager->flush();
-                    $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('User Updated Successfully'));
-                    return $this->redirect()->toRoute('user-admin');
-                }
-            }  
-        }      
-        catch (\Exception $e) {
-            return $this->getServiceLocator()->get('csnuser_error_view')->createErrorView(
-                $this->getTranslatorHelper()->translate('Something went wrong during update user process! Please, try again later.'),
-                $e,
-                $this->getOptions()->getDisplayExceptions(),
-                false
-            );
+        $id = (int) $this->params()->fromRoute('id', 0);
+
+        if($id == 0) {
+            $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('Role ID invalid'));
+            return $this->redirect()->toRoute('role-admin');
         }
         
+        $entityManager = $this->getEntityManager();
+        $role = $entityManager->getRepository('CsnUser\Entity\Role')->find($id);
+        $form = new RoleForm;
+        
+        $form->setAttributes(array(
+                'action' => $this->url()->fromRoute('role-admin', array('action' => 'edit-role', 'id' => $id)),
+                'name' => 'edit-role'
+             ));
+        $form->get('submit')->setAttributes(array(
+                'value' => $this->getTranslatorHelper()->translate('Edit Role'),
+             ));
+        $form->setHydrator(new DoctrineHydrator($entityManager));
+        $form->bind($role);
+
+        PrivilegeModel::setFormCheckBoxes($role->getPrivilege(), $form);
+        
+        if($this->getRequest()->isPost()) {
+            $form->setData($this->getRequest()->getPost());
+            $form->setInputFilter(new RoleFilter($entityManager));
+            //@TODO Revisar si se puede quitar de la validacion al editar el duplicado de objetos de Doctrine!
+            //$form->setValidationGroup('roleDescription', 'csrf');
+            if($form->isValid()) {
+                $role->setPrivilege(PrivilegeModel::createPrivilegeArray($form->getData()->getPrivilege(), $role));
+                $entityManager->persist($role);
+                $entityManager->flush();
+                $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('Role Updated Successfully'));
+                return $this->redirect()->toRoute('role-admin');
+            } else {
+                $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('Something went wrong on Role update'));
+                return $this->redirect()->toRoute('role-admin');
+            }
+        }  
+
         $viewModel = new ViewModel(array(
             'form' => $form,
-            'headerLabel' => $this->getTranslatorHelper()->translate('Edit User').' - '.$user->getDisplayName(),
+            'headerLabel' => $this->getTranslatorHelper()->translate('Edit Role'),
         ));
-        $viewModel->setTemplate('csn-user/admin/edit-user-form');
+        $viewModel->setTemplate('csn-authorization/role-admin/role-form');
         return $viewModel;
-    }*/
+    }
 
     /**
      * Delete action
@@ -164,7 +162,7 @@ class RoleAdminController extends AbstractActionController
      *
      * @return Zend\View\Model\ViewModel
      */
-    /*public function deleteRoleAction()
+    public function deleteRoleAction()
     {
         if(!$this->identity()) {
           return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
@@ -173,28 +171,18 @@ class RoleAdminController extends AbstractActionController
         $id = (int) $this->params()->fromRoute('id', 0);
 
         if ($id == 0) {
-            $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('User ID invalid'));
-            return $this->redirect()->toRoute('user-admin');
+            $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('Role ID invalid'));
+            return $this->redirect()->toRoute('role-admin');
         }
            
-        try {
-            $entityManager = $this->getEntityManager();
-            $user = $entityManager->getRepository('CsnUser\Entity\User')->find($id);
-            $entityManager->remove($user);
-            $entityManager->flush();
-            $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('User Deleted Successfully'));
-        }
-        catch (\Exception $e) {
-            return $this->getServiceLocator()->get('csnuser_error_view')->createErrorView(
-                $this->getTranslatorHelper()->translate('Something went wrong during user delete process! Please, try again later.'),
-                $e,
-                $this->getOptions()->getDisplayExceptions(),
-                false
-            );
-        }
+        $entityManager = $this->getEntityManager();
+        $role = $entityManager->getRepository('CsnUser\Entity\Role')->find($id);
+        $entityManager->remove($role);
+        $entityManager->flush();
+        $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('Role Deleted Successfully'));
 
-        return $this->redirect()->toRoute('user-admin');
-    }*/
+        return $this->redirect()->toRoute('role-admin');
+    }
     
     /**
      * get entityManager
@@ -222,19 +210,5 @@ class RoleAdminController extends AbstractActionController
         }
       
         return $this->translatorHelper;
-    }
-    
-    /**
-     * get roleFormHelper
-     *
-     * @return  Zend\Form\Form
-     */
-    private function getRoleFormHelper()
-    {
-        if (null === $this->roleFormHelper) {
-           $this->roleFormHelper = $this->getServiceLocator()->get('csnauthorization_role_form');
-        }
-      
-        return $this->roleFormHelper;
     }
 }

@@ -12,12 +12,12 @@
 
 namespace CsnAuthorization;
 
-use CsnAuthorization\Acl\Acl;
-
 use Zend\EventManager\EventInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
-use Zend\Http\Response as StdResponse;
+use Zend\Stdlib\Response as StdResponse;
+
+use CsnAuthorization\Acl\Acl;
 
 class Module
 {
@@ -25,7 +25,7 @@ class Module
         $application = $event->getApplication();
         $em = $application->getEventManager();
         $em->attach('route', array($this, 'onRoute'), -100);
-        $em->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'displayAclForbiddenError'), -999);        
+        $em->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDisplayAclForbiddenError'), -999);        
     }
 
     public function onRoute(\Zend\EventManager\EventInterface $event) {
@@ -59,7 +59,7 @@ class Module
         }
     }
     
-    public function displayAclForbiddenError(EventInterface $event) {
+    public function onDisplayAclForbiddenError(EventInterface $event) {
         $error = $event->getError();
         if(empty($error) || $error != "ACL_FORBIDDEN") {
             return;

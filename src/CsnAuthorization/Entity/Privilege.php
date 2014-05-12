@@ -17,8 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Doctrine ORM implementation of Privilege entity
  *
- * @ORM\Table(name="`privilege`")
  * @ORM\Entity
+ * @ORM\Table(name="`privilege`")
  */
 class Privilege
 {
@@ -30,6 +30,12 @@ class Privilege
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="CsnUser\Entity\Role", inversedBy="privilege")
+     * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     */
+    protected $role;
     
     /**
      * @var string
@@ -51,6 +57,11 @@ class Privilege
      * @ORM\Column(name="is_allowed", type="boolean", nullable=false)
      */
     protected $isAllowed = false;
+    
+    public function __toString() {
+        $isAllowed = ($this->getIsAllowed())? '1':'0';
+        return $this->getResource().'-'.$this->getPrivilege().'-'.$isAllowed;    
+    }
 
     /**
      * Get id
@@ -63,10 +74,33 @@ class Privilege
     }
     
     /**
+     * Set role
+     *
+     * @param Role $role
+     * @return Privilege
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+    
+        return $this;
+    }
+    
+    /**
+     * Get role
+     *
+     * @return Role
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+    
+    /**
      * Set resource
      *
      * @param string $resource
-     * @return CsnAuthorization\Entity\Privilege
+     * @return Privilege
      */
     public function setResource($resource)
     {
@@ -112,7 +146,7 @@ class Privilege
      * Set is allowed
      *
      * @param  boolean $isAllowed
-     * @return CsnAuthorization\Entity\Privilege
+     * @return Privilege
      */
     public function setIsAllowed($isAllowed)
     {
