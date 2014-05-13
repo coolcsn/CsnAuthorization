@@ -26,5 +26,18 @@ class PrivilegeFieldset extends Fieldset
             ),
         ));
         
+        $this->add(array(
+            'type' => 'CsnAuthorization\Form\ModulePrivilege\CsnCms\CsnCmsPrivilege',
+            'options' => array(
+                'use_as_base_fieldset' => false,
+            ),
+        ));
+        
+        $this->add(array(
+            'type' => 'CsnAuthorization\Form\ModulePrivilege\CsnFileManager\CsnFileManagerPrivilege',
+            'options' => array(
+                'use_as_base_fieldset' => false,
+            ),
+        ));
     }
 }

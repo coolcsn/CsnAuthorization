@@ -62,10 +62,22 @@ $form->prepare();
                   echo $this->partial('csn-authorization/role-admin/module-privilege/csnuser');
                 ?>             
               </div>
-                <div class="col-sm-12"> 
+              <div class="col-sm-12"> 
                 <!-- CsnAuthorization Privileges Fieldset-->
                 <?php 
                   echo $this->partial('csn-authorization/role-admin/module-privilege/csnauthorization');
+                ?>             
+              </div>
+              <div class="col-sm-12"> 
+                <!-- CsnCms Privileges Fieldset-->
+                <?php 
+                  echo $this->partial('csn-authorization/role-admin/module-privilege/csncms');
+                ?>             
+              </div>
+              <div class="col-sm-12"> 
+                <!-- CsnFileManager Privileges Fieldset-->
+                <?php 
+                  echo $this->partial('csn-authorization/role-admin/module-privilege/csnfilemanager');
                 ?>             
               </div>
             </div>
