@@ -6,7 +6,7 @@
 INSERT INTO `privilege` (`id`, `role_id`, `resource`, `privilege`, `is_allowed`) VALUES
 (1, 1, 'CsnUser\\Controller\\Index', 'index', 1),
 (2, 1, 'CsnUser\\Controller\\Index', 'login', 1),
-(3, 1, 'CsnUser\\Controller\\Index', 'logout', 0),
+(3, 1, 'CsnUser\\Controller\\Index', 'logout', 1),
 (4, 1, 'CsnUser\\Controller\\Registration', 'index', 1),
 (5, 1, 'CsnUser\\Controller\\Registration', 'edit-profile', 0),
 (6, 1, 'CsnUser\\Controller\\Registration', 'change-password', 0),
@@ -52,7 +52,7 @@ INSERT INTO `privilege` (`id`, `role_id`, `resource`, `privilege`, `is_allowed`)
 (46, 1, 'CsnFileManager\\Controller\\Index', 'view', 0),
 (47, 1, 'CsnFileManager\\Controller\\Index', 'get-image', 0),
 (48, 2, 'CsnUser\\Controller\\Index', 'index', 1),
-(49, 2, 'CsnUser\\Controller\\Index', 'login', 0),
+(49, 2, 'CsnUser\\Controller\\Index', 'login', 1),
 (50, 2, 'CsnUser\\Controller\\Index', 'logout', 1),
 (51, 2, 'CsnUser\\Controller\\Registration', 'index', 0),
 (52, 2, 'CsnUser\\Controller\\Registration', 'edit-profile', 1),
@@ -99,7 +99,7 @@ INSERT INTO `privilege` (`id`, `role_id`, `resource`, `privilege`, `is_allowed`)
 (93, 2, 'CsnFileManager\\Controller\\Index', 'view', 1),
 (94, 2, 'CsnFileManager\\Controller\\Index', 'get-image', 1),
 (95, 3, 'CsnUser\\Controller\\Index', 'index', 1),
-(96, 3, 'CsnUser\\Controller\\Index', 'login', 0),
+(96, 3, 'CsnUser\\Controller\\Index', 'login', 1),
 (97, 3, 'CsnUser\\Controller\\Index', 'logout', 1),
 (98, 3, 'CsnUser\\Controller\\Registration', 'index', 0),
 (99, 3, 'CsnUser\\Controller\\Registration', 'edit-profile', 1),
@@ -146,7 +146,7 @@ INSERT INTO `privilege` (`id`, `role_id`, `resource`, `privilege`, `is_allowed`)
 (140, 3, 'CsnFileManager\\Controller\\Index', 'view', 1),
 (141, 3, 'CsnFileManager\\Controller\\Index', 'get-image', 1),
 (142, 4, 'CsnUser\\Controller\\Index', 'index', 1),
-(143, 4, 'CsnUser\\Controller\\Index', 'login', 0),
+(143, 4, 'CsnUser\\Controller\\Index', 'login', 1),
 (144, 4, 'CsnUser\\Controller\\Index', 'logout', 1),
 (145, 4, 'CsnUser\\Controller\\Registration', 'index', 0),
 (146, 4, 'CsnUser\\Controller\\Registration', 'edit-profile', 1),
@@ -192,3 +192,4 @@ INSERT INTO `privilege` (`id`, `role_id`, `resource`, `privilege`, `is_allowed`)
 (186, 4, 'CsnFileManager\\Controller\\Index', 'delete', 1),
 (187, 4, 'CsnFileManager\\Controller\\Index', 'view', 1),
 (188, 4, 'CsnFileManager\\Controller\\Index', 'get-image', 1);
+
