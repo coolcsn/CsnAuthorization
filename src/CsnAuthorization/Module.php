@@ -28,7 +28,7 @@ class Module
         $em->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDisplayAclForbiddenError'), -999);        
     }
 
-    public function onRoute(\Zend\EventManager\EventInterface $event) {
+    public function onRoute(EventInterface $event) {
         $application = $event->getApplication();
         $sm = $application->getServiceManager();
         $auth = $sm->get('Zend\Authentication\AuthenticationService');
