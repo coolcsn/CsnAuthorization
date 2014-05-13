@@ -48,7 +48,7 @@ The following routes are available (Only accessible for admin role users):
 - **role/admin/edit-role/RoleId**<sup>1</sup> Edit Role admin view.
 - **role/admin/delete-role/RoleId**<sup>1</sup> Delete Role admin view.
  
-1 RoleId is an integer indicating the Role to be processed
+1 **RoleId** is an integer indicating the Role to be processed
 
 Dependencies
 ------------
