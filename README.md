@@ -27,18 +27,28 @@ Installation
     'CsnAuthorization'
 )
 ```
-
-- Set up your **Access Control List** configuration by copying `acl.global.php.dist` (located in `vendor/coolcsn/csn-authorization/config` if you have installed via *Composer*) into your `config/autoload` directory (Remove the .dist part).
-- **Recommended:** Run `./vendor/bin/doctrine-module orm:schema-tool:update` to update the database schema if you are going to store the ACL in the database (**Note:** You may need to force the update by adding ` --force` to the command).
-- **Optional:** If you prefer to load the ACL from the database, make sure you've completed the previous step, then set `use_database_storage = true` in the acl config. Import the sample ACL located in `./vendor/coolcsn/CsnAuthorization/data/SampleData.sql`. You can easily do that with *PhpMyAdmin* for instance.
+- Run `./vendor/bin/doctrine-module orm:schema-tool:create` to generate the database privilege table for this module (Note: You may need to force the update by adding `--force` to the command). Import the sample SQL data (for some default ACL data) located in `./vendor/coolcsn/CsnAuthorization/data/SampleData.sql`. You can easily do that with PhpMyAdmin for instance.
+- Set up your basic **Access Control List** configuration by copying `csnauthorization.global.php.dist` (located in `vendor/coolcsn/csn-authorization/config` if you have installed via *Composer*) into your `config/autoload` directory (Remove the .dist part). This is needed for basic ACL to work. Read the file for more details.
 
 >### Does it work? ###
-Navigate to a controller/action which has been allowed only for members in your ACL configuration and you should be redirected. Now login (preferably using CsnUser) and attempt that action again. Enjoy :)
+Navigate to a controller/action which has been allowed only for members in your ACL configuration and you should be redirected. Now login (preferably using CsnUser default user with `administrator` as the username and `superadmin` as the password.) and attempt that action again. Enjoy :)
 
 Important Notes
 -----------
-- Wherever you need the acl object, just call `$serviceLocator->get('acl')`. It will properly construct a *Zend\Permissions\Acl\Acl* object based on the data in the config or the database.
+- Wherever you need the acl object, just call `$serviceLocator->get('csnauthorization')`. It will properly construct a *Zend\Permissions\Acl\Acl* object based on the data in the basic ACL config file and the database.
 - In your controllers or view scripts you can call `$this->isAllowed($resource, $privilege)` to check whether the current user has access to a resource.
+- To add more Modules/Controllers/Action to the ACL, just take a look at `CsnAuthorization\Form` and `CsnAuthorization/view/csn-authorization/role-admin`
+
+Routes
+------------
+The following routes are available (Only accessible for admin role users):
+
+- **role/admin** Role admin view list.
+- **role/admin/create-role** Create Role admin view.
+- **role/admin/edit-role/RoleId*** Edit Role admin view.
+- **role/admin/delete-role/RoleId*** Delete Role admin view.
+ 
+* RoleId is an integer indicating the Role to by processed
 
 Dependencies
 ------------

@@ -43,16 +43,16 @@ return array(
                  *  ACL for CsnCms articles
                  */
                 'all' => array(
-                    'view'  => 'guest',
+                    'view'	=> 'guest',
                 ),
                 'Public Resource' => array(
-                    'view'  => 'guest',
+                    'view'	=> 'guest',
                 ),
                 'Private Resource' => array(
-                    'view'  => 'user',
+                    'view'	=> 'user',
                 ),
                 'Admin Resource' => array(
-                    'view'  => 'admin',
+                    'view'	=> 'admin',
                 ), 
                 /**
                  * At least all users must be able to see Zend Skeleton Application
