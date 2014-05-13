@@ -45,10 +45,10 @@ The following routes are available (Only accessible for admin role users):
 
 - **role/admin** Role admin view list.
 - **role/admin/create-role** Create Role admin view.
-- **role/admin/edit-role/RoleId*** Edit Role admin view.
-- **role/admin/delete-role/RoleId*** Delete Role admin view.
+- **role/admin/edit-role/RoleId**<sup>1</sup> Edit Role admin view.
+- **role/admin/delete-role/RoleId**<sup>1</sup> Delete Role admin view.
  
-* RoleId is an integer indicating the Role to by processed
+1 RoleId is an integer indicating the Role to by processed
 
 Dependencies
 ------------
@@ -62,3 +62,4 @@ Recommends
 - [coolcsn/CsnUser](https://github.com/coolcsn/CsnUser) - Authentication (login, registration) module.
 - [coolcsn/CsnAclNavigation](https://github.com/coolcsn/CsnAclNavigation) - Navigation module;
 - [coolcsn/CsnCms](https://github.com/coolcsn/CsnCms) - Content management system;
+
