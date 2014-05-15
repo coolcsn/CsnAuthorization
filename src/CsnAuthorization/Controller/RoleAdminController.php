@@ -164,10 +164,6 @@ class RoleAdminController extends AbstractActionController
      */
     public function deleteRoleAction()
     {
-        if(!$this->identity()) {
-          return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
-        }
-      
         $id = (int) $this->params()->fromRoute('id', 0);
 
         if ($id == 0) {
