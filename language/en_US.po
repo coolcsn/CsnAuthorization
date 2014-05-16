@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CsnAuthorization\n"
+"POT-Creation-Date: 2014-05-16 14:54-0300\n"
+"PO-Revision-Date: 2014-05-16 14:55-0300\n"
+"Last-Translator: Martin Briglia <martin@mgscreativa.com>\n"
+"Language-Team: CoolCsn\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:73
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:95
+#: ../view/csn-authorization/role-admin/index.phtml:34
+msgid "Create Role"
+msgstr ""
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:85
+msgid "Role Created Successfully"
+msgstr ""
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:88
+msgid "Something went wrong on Role creation"
+msgstr ""
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:113
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:170
+msgid "Role ID invalid"
+msgstr ""
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:126
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:152
+msgid "Edit Role"
+msgstr ""
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:142
+msgid "Role Updated Successfully"
+msgstr ""
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:145
+msgid "Something went wrong on Role update"
+msgstr ""
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:178
+msgid "Role Deleted Successfully"
+msgstr ""
+
+#: ../view/csn-authorization/role-admin/role-form.phtml:28
+msgid "Role Name"
+msgstr ""
+
+#: ../view/csn-authorization/role-admin/role-form.phtml:34
+msgid "Role Description"
+msgstr ""
+
+#: ../view/csn-authorization/role-admin/index.phtml:31
+msgid "Roles Admin Table"
+msgstr ""
+
+#: ../view/csn-authorization/role-admin/index.phtml:42
+msgid "Name"
+msgstr ""
+
+#: ../view/csn-authorization/role-admin/index.phtml:43
+msgid "Actions"
+msgstr ""
+
+#: ../view/csn-authorization/role-admin/index.phtml:58
+msgid "Edit"
+msgstr ""
+
+#: ../view/csn-authorization/role-admin/index.phtml:60
+msgid "Do you really want to delete this role?"
+msgstr ""
+
+#: ../view/csn-authorization/role-admin/index.phtml:61
+msgid "Delete"
+msgstr ""
+
+#: ../view/csn-authorization/role-admin/module-privilege/csnauthorization.phtml:14
+#: ../view/csn-authorization/role-admin/module-privilege/csncms.phtml:14
+#: ../view/csn-authorization/role-admin/module-privilege/csnuser.phtml:14
+#: ../view/csn-authorization/role-admin/module-privilege/csnfilemanager.phtml:14
+msgid "Module "
+msgstr ""

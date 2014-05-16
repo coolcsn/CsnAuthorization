@@ -36,7 +36,7 @@ class Module
 
         /**
          *  Everyone is default role until logged in.
-         *  This is configured in acl.global.php
+         *  This is configured in csnauthorization.global.php
          */
         $roleName = $acl->getDefaultRole();
         if ($auth->hasIdentity()) {
