@@ -39,6 +39,19 @@ Important Notes
 - In your controllers or view scripts you can call `$this->isAllowed($resource, $privilege)` to check whether the current user has access to a resource.
 - To add more Modules/Controllers/Action to the ACL, just take a look at `CsnAuthorization\Form` and `CsnAuthorization/view/csn-authorization/role-admin`
 
+Enable module translations
+--------------------------
+If you wish to enable module translations, you need to add this array to `translation_file_patterns` key in your `translator` key in Zend Skeleton Application **Application** module config `module.config.php` file. After that, you may proceed to create your own translation files that are located in `CsnAuthorization/language`
+
+```
+array(
+    'type'     => 'gettext',
+    'base_dir' => __DIR__ . '/../../CsnAuthorization/language',
+    'pattern'  => '%s.mo',
+    'text_domain' => 'csnauthorization',
+)
+```
+
 Routes
 ------------
 The following routes are available (Only accessible for admin role users):

@@ -70,7 +70,7 @@ class RoleAdminController extends AbstractActionController
             'name' => 'create-role'
              ));        
         $form->get('submit')->setAttributes(array(
-                'value' => $this->getTranslatorHelper()->translate('Create Role'),
+                'value' => $this->getTranslatorHelper()->translate('Create Role', 'csnauthorization'),
              ));
         $form->setHydrator(new DoctrineHydrator($entityManager));
         $form->bind($role);
@@ -82,17 +82,17 @@ class RoleAdminController extends AbstractActionController
                 $role->setPrivilege(PrivilegeModel::createPrivilegeArray($form->getData()->getPrivilege(), $role));
                 $entityManager->persist($role);
                 $entityManager->flush();
-                $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('Role Created Successfully'));
+                $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('Role Created Successfully', 'csnauthorization'));
                 return $this->redirect()->toRoute('role-admin');
             } else {
-                $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('Something went wrong on Role creation'));
+                $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('Something went wrong on Role creation', 'csnauthorization'));
                 return $this->redirect()->toRoute('role-admin');
             }
         }
 
         $viewModel = new ViewModel(array(
             'form' => $form,
-            'headerLabel' => $this->getTranslatorHelper()->translate('Create Role'),
+            'headerLabel' => $this->getTranslatorHelper()->translate('Create Role', 'csnauthorization'),
         ));
         $viewModel->setTemplate('csn-authorization/role-admin/role-form');
         return $viewModel;
@@ -110,7 +110,7 @@ class RoleAdminController extends AbstractActionController
         $id = (int) $this->params()->fromRoute('id', 0);
 
         if($id == 0) {
-            $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('Role ID invalid'));
+            $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('Role ID invalid', 'csnauthorization'));
             return $this->redirect()->toRoute('role-admin');
         }
         
@@ -123,7 +123,7 @@ class RoleAdminController extends AbstractActionController
                 'name' => 'edit-role'
              ));
         $form->get('submit')->setAttributes(array(
-                'value' => $this->getTranslatorHelper()->translate('Edit Role'),
+                'value' => $this->getTranslatorHelper()->translate('Edit Role', 'csnauthorization'),
              ));
         $form->setHydrator(new DoctrineHydrator($entityManager));
         $form->bind($role);
@@ -139,17 +139,17 @@ class RoleAdminController extends AbstractActionController
                 $role->setPrivilege(PrivilegeModel::createPrivilegeArray($form->getData()->getPrivilege(), $role));
                 $entityManager->persist($role);
                 $entityManager->flush();
-                $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('Role Updated Successfully'));
+                $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('Role Updated Successfully', 'csnauthorization'));
                 return $this->redirect()->toRoute('role-admin');
             } else {
-                $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('Something went wrong on Role update'));
+                $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('Something went wrong on Role update', 'csnauthorization'));
                 return $this->redirect()->toRoute('role-admin');
             }
         }  
 
         $viewModel = new ViewModel(array(
             'form' => $form,
-            'headerLabel' => $this->getTranslatorHelper()->translate('Edit Role'),
+            'headerLabel' => $this->getTranslatorHelper()->translate('Edit Role', 'csnauthorization'),
         ));
         $viewModel->setTemplate('csn-authorization/role-admin/role-form');
         return $viewModel;
@@ -167,7 +167,7 @@ class RoleAdminController extends AbstractActionController
         $id = (int) $this->params()->fromRoute('id', 0);
 
         if ($id == 0) {
-            $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('Role ID invalid'));
+            $this->flashMessenger()->addErrorMessage($this->getTranslatorHelper()->translate('Role ID invalid', 'csnauthorization'));
             return $this->redirect()->toRoute('role-admin');
         }
            
@@ -175,7 +175,7 @@ class RoleAdminController extends AbstractActionController
         $role = $entityManager->getRepository('CsnUser\Entity\Role')->find($id);
         $entityManager->remove($role);
         $entityManager->flush();
-        $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('Role Deleted Successfully'));
+        $this->flashMessenger()->addSuccessMessage($this->getTranslatorHelper()->translate('Role Deleted Successfully', 'csnauthorization'));
 
         return $this->redirect()->toRoute('role-admin');
     }

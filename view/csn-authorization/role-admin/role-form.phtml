@@ -25,13 +25,13 @@ $form->setAttributes(array(
 $form->get('name')->setAttributes(array(
     'required' => 'true',
     'class' => 'form-control input-lg', 
-    'placeholder' => $this->translate('Role Name')
+    'placeholder' => $this->translate('Role Name', 'csnauthorization')
 ));
 
 $form->get('roleDescription')->setAttributes(array(
     'required' => 'false',
     'class' => 'form-control input-lg', 
-    'placeholder' => $this->translate('Role Description')
+    'placeholder' => $this->translate('Role Description', 'csnauthorization')
 ));
 
 $form->get('submit')->setAttributes(array(

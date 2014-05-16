@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CsnAuthorization\n"
-"POT-Creation-Date: 2014-05-16 14:54-0300\n"
-"PO-Revision-Date: 2014-05-16 14:55-0300\n"
+"POT-Creation-Date: 2014-05-16 20:20-0300\n"
+"PO-Revision-Date: 2014-05-16 20:20-0300\n"
 "Last-Translator: Martin Briglia <martin@mgscreativa.com>\n"
 "Language-Team: CoolCsn\n"
 "Language: en_US\n"
@@ -12,6 +12,7 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../src/CsnAuthorization/Controller/RoleAdminController.php:73

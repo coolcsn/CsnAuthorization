@@ -28,10 +28,10 @@ $flashMessenger = $this->flashMessenger()
  <?php echo $flashMessenger->render('success', array('alert', 'alert-dismissable', 'alert-success')); ?>
 </div>
 <h1>
-  <?php echo $this->translate('Roles Admin Table') ?>
+  <?php echo $this->translate('Roles Admin Table', 'csnauthorization') ?>
 </h1>
 <a class="btn btn-success" href="<?php echo $this->url('role-admin', array('action' => 'create-role')); ?>">
-  <?php echo $this->translate('Create Role') ?>
+  <?php echo $this->translate('Create Role', 'csnauthorization') ?>
 </a>
 <hr />
 <div class="table-responsive">
@@ -39,8 +39,8 @@ $flashMessenger = $this->flashMessenger()
     <thead>
       <tr>
         <th>Id</th>
-          <th><?php echo $this->translate('Name') ?></th>
-          <th><?php echo $this->translate('Actions') ?></th>
+          <th><?php echo $this->translate('Name', 'csnauthorization') ?></th>
+          <th><?php echo $this->translate('Actions', 'csnauthorization') ?></th>
         </tr>
       </thead>
       <?php
@@ -55,10 +55,10 @@ $flashMessenger = $this->flashMessenger()
         </td>
         <td class="delete-cell">
           <a href="<?php echo $this->url('role-admin', array('action'=>'edit-role', 'id' => $role->getId()));?>">
-            <?php echo $this->translate('Edit') ?>
+            <?php echo $this->translate('Edit', 'csnauthorization') ?>
           </a> | 
-          <a href="<?php echo $this->url('role-admin', array('action'=>'delete-role', 'id' => $role->getId()));?>" onclick="return confirm('<?php echo $this->translate('Do you really want to delete this role?') ?>')">
-            <?php echo $this->translate('Delete') ?>
+          <a href="<?php echo $this->url('role-admin', array('action'=>'delete-role', 'id' => $role->getId()));?>" onclick="return confirm('<?php echo $this->translate('Do you really want to delete this role?', 'csnauthorization') ?>')">
+            <?php echo $this->translate('Delete', 'csnauthorization') ?>
           </a>
         </td>
       </tr>
