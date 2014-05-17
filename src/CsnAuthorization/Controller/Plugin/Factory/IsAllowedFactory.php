@@ -22,7 +22,7 @@ class IsAllowedFactory implements FactoryInterface
     {
         $services = $serviceLocator->getServiceLocator();
         $auth = $services->get('Zend\Authentication\AuthenticationService');
-        $acl = $services->get('acl');
+        $acl = $services->get('csnauthorization');
           
         return new IsAllowed($auth, $acl);
     }

@@ -33,7 +33,7 @@ class IsAllowed extends AbstractPlugin {
      */
     public function __invoke($resource, $privilege = null) {
         if ($this->auth->hasIdentity()) {
-            $userRole = $this->auth->getIdentity()->getRole()->getName();
+            $userRole = $this->acl->filterRoleName($this->auth->getIdentity()->getRole()->getName());
             if (!$this->acl->hasResource($resource)) {
                 throw new \Exception('Resource ' . $resource . ' not defined');
             }
