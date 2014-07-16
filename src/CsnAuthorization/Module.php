@@ -67,7 +67,7 @@ class Module
         unset($error);
         
         $result = $event->getResult();
-        if(StdResponse instanceof $result) {
+        if($result instanceof StdResponse) {
             return;
         }
         unset($result);
