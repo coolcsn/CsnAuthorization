@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CsnAuthorization\n"
+"POT-Creation-Date: 2014-05-16 20:20-0300\n"
+"PO-Revision-Date: 2014-07-16 11:48+0100\n"
+"Last-Translator: Alexandre Tranchant <Alexandre.Tranchant@gmail.com>\n"
+"Language-Team: Alexandre Tranchant <Alexandre.Tranchant@gmail.com>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.6\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:73
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:95
+#: ../view/csn-authorization/role-admin/index.phtml:34
+msgid "Create Role"
+msgstr "Créer un rôle"
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:85
+msgid "Role Created Successfully"
+msgstr "Rôle créé avec succès"
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:88
+msgid "Something went wrong on Role creation"
+msgstr "Une erreur est survenue durant la création du rôle"
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:113
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:170
+msgid "Role ID invalid"
+msgstr "Identifiant du rôle invalide"
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:126
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:152
+msgid "Edit Role"
+msgstr "Modifier le rôle"
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:142
+msgid "Role Updated Successfully"
+msgstr "Rôle modifié avec succès"
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:145
+msgid "Something went wrong on Role update"
+msgstr "Une erreur est survenue durant la modification du rôle"
+
+#: ../src/CsnAuthorization/Controller/RoleAdminController.php:178
+msgid "Role Deleted Successfully"
+msgstr "Rôle supprimé avec succès"
+
+#: ../view/csn-authorization/role-admin/role-form.phtml:28
+msgid "Role Name"
+msgstr "Nom du rôle"
+
+#: ../view/csn-authorization/role-admin/role-form.phtml:34
+msgid "Role Description"
+msgstr "Description du rôle"
+
+#: ../view/csn-authorization/role-admin/index.phtml:31
+msgid "Roles Admin Table"
+msgstr "Tableau d'administration des rôles"
+
+#: ../view/csn-authorization/role-admin/index.phtml:42
+msgid "Name"
+msgstr "Nom"
+
+#: ../view/csn-authorization/role-admin/index.phtml:43
+msgid "Actions"
+msgstr "Action"
+
+#: ../view/csn-authorization/role-admin/index.phtml:58
+msgid "Edit"
+msgstr "Éditer"
+
+#: ../view/csn-authorization/role-admin/index.phtml:60
+msgid "Do you really want to delete this role?"
+msgstr "Voulez-vous réellement supprimer ce rôle ?"
+
+#: ../view/csn-authorization/role-admin/index.phtml:61
+msgid "Delete"
+msgstr "Supprimer"
+
+#: ../view/csn-authorization/role-admin/module-privilege/csnauthorization.phtml:14
+#: ../view/csn-authorization/role-admin/module-privilege/csncms.phtml:14
+#: ../view/csn-authorization/role-admin/module-privilege/csnuser.phtml:14
+#: ../view/csn-authorization/role-admin/module-privilege/csnfilemanager.phtml:14
+msgid "Module "
+msgstr "Module"
