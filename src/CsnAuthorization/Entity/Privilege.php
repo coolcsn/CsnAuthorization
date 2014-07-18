@@ -1,111 +1,66 @@
 <?php
 /**
- * Coolcsn Zend Framework 2 Authorization Module
+ * CsnAuthorization - Coolcsn Zend Framework 2 Authorization Module
  * 
  * @link https://github.com/coolcsn/CsnAuthorization for the canonical source repository
  * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
  * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
  * @author Stoyan Cheresharov <stoyan@coolcsn.com>
  * @author Stoyan Revov <st.revov@gmail.com>
-*/
+ * @author Martin Briglia <martin@mgscreativa.com>
+ */
 
 namespace CsnAuthorization\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Zend\Form\Annotation; // !!!! Absolutely neccessary
-
 /**
- * Privileges
+ * Doctrine ORM implementation of Privilege entity
  *
- * @ORM\Table(name="privilege")
  * @ORM\Entity
- * @Annotation\Name("privilege")
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
+ * @ORM\Table(name="`privilege`")
  */
 class Privilege
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100, nullable=true)
-     * @Annotation\Filter({"name":"StringTrim"})
-     * @Annotation\Validator({"name":"StringLength", "options":{"min":1, "max":30}})
-     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[a-zA-Z][a-zA-Z0-9_ -]{0,100}$/"}})
-     * @Annotation\Attributes({"type":"text"})
-     * @Annotation\Options({"label":"Privilege:"})
-     */
-    protected $name;
-
     /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Annotation\Exclude()
      */
     protected $id;
     
     /**
-     * @var CsnAuthorization\Entity\Resource
-     *
-     * @ORM\ManyToOne(targetEntity="CsnAuthorization\Entity\Resource")
-     * @ORM\JoinColumn(name="resource_id", referencedColumnName="id", nullable=true)
-     * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
-     * @Annotation\Options({
-     * "label":"Resource:",
-     * "empty_option": "Please, choose a resource",
-     * "target_class":"CsnAuthorization\Entity\Resource",
-     * "property": "name"})
+     * @ORM\ManyToOne(targetEntity="CsnUser\Entity\Role", inversedBy="privilege")
+     * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
-    protected $resource;
-    
-    /**
-    * @var CsnUser\Entity\Role
-    *
-    * @ORM\ManyToOne(targetEntity="CsnUser\Entity\Role")
-    * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=false)
-    * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
-    * @Annotation\Options({
-    * "label":"Role:",
-    * "empty_option": "Please, choose a role",
-    * "target_class":"CsnUser\Entity\Role",
-    * "property": "name"})
-    */
     protected $role;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="resource", type="string", length=100, nullable=false)
+     */
+    protected $resource;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="privilege", type="string", length=100, nullable=false)
+     */
+    protected $privilege;
+   
+    /**
      * @var boolean
      *
-     * @ORM\Column(name="permission_allow", type="boolean", nullable=false)
-     * @Annotation\Type("Zend\Form\Element\Checkbox")
-     * @Annotation\Options({
-     * "label":"Allow permission:"})
+     * @ORM\Column(name="is_allowed", type="boolean", nullable=false)
      */
-    protected $permissionAllow = true;
-
-    /**
-     * Set name
-     *
-     * @param  string   $name
-     * @return Privilege
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
+    protected $isAllowed = false;
+    
+    public function __toString() {
+        $isAllowed = ($this->getIsAllowed())? '1':'0';
+        return $this->getResource().'-'.$this->getPrivilege().'-'.$isAllowed;    
     }
 
     /**
@@ -119,41 +74,18 @@ class Privilege
     }
     
     /**
-     * Set resource
-     *
-     * @param  CsnAuthorization\Entity\Resource $resource
-     * @return CsnAuthorization\Entity\Privilege
-     */
-    public function setResource($resource)
-    {
-        $this->resource = $resource;
-
-        return $this;
-    }
-
-    /**
-     * Get resource
-     *
-     * @return CsnAuthorization\Entity\Resource
-     */
-    public function getResource()
-    {
-        return $this->resource;
-    }
-    
-    /**
      * Set role
      *
-     * @param  Role $role
-     * @return CsnAuthorization\Entity\Privilege
+     * @param Role $role
+     * @return Privilege
      */
     public function setRole($role)
     {
         $this->role = $role;
-
+    
         return $this;
     }
-
+    
     /**
      * Get role
      *
@@ -165,26 +97,71 @@ class Privilege
     }
     
     /**
-     * Set permissionAllow
+     * Set resource
      *
-     * @param  boolean $permissionAllow
-     * @return CsnAuthorization\Entity\Privilege
+     * @param string $resource
+     * @return Privilege
      */
-    public function setPermissionAllow($permissionAllow)
+    public function setResource($resource)
     {
-        $this->permissionAllow = $permissionAllow;
+        $this->resource = $resource;
+
+        return $this;
+    }
+
+    /**
+     * Get resource
+     *
+     * @return string
+     */
+    public function getResource()
+    {
+        return $this->resource;
+    }
+    
+    /**
+     * Set privilege
+     *
+     * @param string $privilege
+     * @return Privilege
+     */
+    public function setPrivilege($privilege)
+    {
+        $this->privilege = $privilege;
+    
+        return $this;
+    }
+    
+    /**
+     * Get privilege
+     *
+     * @return string
+     */
+    public function getPrivilege()
+    {
+        return $this->privilege;
+    }
+    
+    /**
+     * Set is allowed
+     *
+     * @param  boolean $isAllowed
+     * @return Privilege
+     */
+    public function setIsAllowed($isAllowed)
+    {
+        $this->isAllowed = $isAllowed;
 
         return $this;
     }
     
     /**
-     * Get permissionAllow
+     * Get is allowed
      *
      * @return boolean
      */
-    public function getPermissionAllow()
+    public function getIsAllowed()
     {
-        return $this->permissionAllow;
-    }
-    
+        return $this->isAllowed;
+    }    
 }

@@ -1,78 +1,119 @@
 <?php
 /**
- * File for Acl Class
- *
- * @category  User
- * @package   User_Acl
- * @author    Marco Neumann <webcoder_at_binware_dot_org>
- * @copyright Copyright (c) 2011, Marco Neumann
- * @license   http://binware.org/license/index/type:new-bsd New BSD License
- * http://p0l0.binware.org/index.php/2012/02/18/zend-framework-2-authentication-acl-using-eventmanager/
+ * CsnAuthorization - Coolcsn Zend Framework 2 Authorization Module
+ * 
+ * @link https://github.com/coolcsn/CsnAuthorization for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
+ * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
+ * @author Stoyan Cheresharov <stoyan@coolcsn.com>
+ * @author Stoyan Revov <st.revov@gmail.com>
+ * @author Martin Briglia <martin@mgscreativa.com>
  */
 
-/**
- * @namespace
- */
 namespace CsnAuthorization\Acl;
-// namespace User\Acl;
+
+use Zend\Permissions\Acl\Acl as ZendAcl;
+use Zend\Permissions\Acl\Role\GenericRole as Role;
+use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
 /**
- * @uses Zend\Acl\Acl
- * @uses Zend\Acl\Role\GenericRole
- * @uses Zend\Acl\Resource\GenericResource
+ * Class to handle Acl rules, loading ACL definitions from config files and database for
+ * the current logged in user only if possible.
  */
-use Zend\Permissions\Acl\Acl as ZendAcl,
-    Zend\Permissions\Acl\Role\GenericRole as Role,
-    Zend\Permissions\Acl\Resource\GenericResource as Resource;
-// use Zend\Acl\Acl as ZendAcl,
-//    Zend\Acl\Role\GenericRole as Role,
-//    Zend\Acl\Resource\GenericResource as Resource;
-
-/**
- * Class to handle Acl
- *
- * This class is for loading ACL defined in a config
- *
- * @category User
- * @package  User_Acl
- * @copyright Copyright (c) 2011, Marco Neumann
- * @license   http://binware.org/license/index/type:new-bsd New BSD License
- */
-class Acl extends ZendAcl {
+class Acl extends ZendAcl
+{
     /**
      * Default Role
      */
-    const DEFAULT_ROLE = 'guest';
+    protected $defaultRole = 'guest';
 
     /**
      * Constructor
      *
-     * @param array $config
+     * @param $serviceLocator
      * @return void
-     * @throws \Exception
      */
-    public function __construct($config)
+    public function __construct($serviceLocator)
     {
-        if (!isset($config['acl']['roles']) || !isset($config['acl']['resources'])) {
-            throw new \Exception('Invalid ACL Config found');
-        }
+        /**
+         * Get the default role from config file
+         */
+        $config = $serviceLocator->get('config');        
+        if (!isset($config['csnauthorization']['default_role'])) {
+            throw new \Exception('No default role set. Please review your acl.global.php config file.');
+        } else {
+            $this->setDefaultRole($config['csnauthorization']['default_role']);
+        }        
+        
+        /**
+         * Get the ACL rules from database for the current role only
+         * bassed on the current logged in user if possible.
+         */
+        $auth = $serviceLocator->get('Zend\Authentication\AuthenticationService');
+        if($auth->hasIdentity()) {
+            $role = $auth->getIdentity()->getRole();
+            $roleName = $this->filterRoleName($role->getName());
+        } else {
+            $roleName = $this->filterRoleName($this->getDefaultRole());
+            $role = $serviceLocator->get('doctrine.entitymanager.orm_default')->getRepository('CsnUser\Entity\Role')->findOneBy(array('name' => $roleName));
+        }  
 
-        $roles = $config['acl']['roles'];
-        if (!isset($roles[self::DEFAULT_ROLE])) {
-            $roles[self::DEFAULT_ROLE] = '';
+        /**
+         * Get some basic ACL rules from config file
+         */        
+        if (isset($config['csnauthorization']['roles']) && isset($config['csnauthorization']['resources'])) {
+            $roles = $config['csnauthorization']['roles'];        
+            $this->_addConfigDefinedRoles($roles)
+                 ->_addConfigDefinedResources($config['csnauthorization']['resources']);
         }
-
-        $this->_addRoles($roles)
-             ->_addResources($config['acl']['resources']);
+        
+        /**
+         * Get the rest of the ACL rules that got loaded from database
+         */
+        $this->_addDatabaseDefinedRole($roleName)
+             ->_addDatabaseDefinedAclRules($roleName, $role->getPrivilege());
     }
-
+    
     /**
-     * Adds Roles to ACL
+     * Filter role name
+     *
+     * @param array $roleName
+     * @return string
+     */
+    public function filterRoleName($roleName)
+    {
+        return str_replace(' ', '-', strtolower($roleName));
+    }
+    
+    /**
+     * Set default role
+     *
+     * @param array $defaultRole
+     * @return string
+     */
+    private function setDefaultRole($defaultRole)
+    {
+        $this->defaultRole = $defaultRole;
+    }
+    
+    /**
+     * Get default role
+     *
+     * @return string
+     */
+    
+    public function getDefaultRole()
+    {
+        return $this->defaultRole;
+    }
+    
+    /**
+     * Adds config defined roles to ACL
      *
      * @param array $roles
-     * @return User\Acl
+     * @return CsnAuthorization\Acl\Acl
      */
-    protected function _addRoles($roles)
+    protected function _addConfigDefinedRoles($roles)
     {
         foreach ($roles as $name => $parent) {
             if (!$this->hasRole($name)) {
@@ -81,22 +122,22 @@ class Acl extends ZendAcl {
                 } else {
                     $parent = explode(',', $parent);
                 }
-
+    
                 $this->addRole(new Role($name), $parent);
             }
         }
-
+    
         return $this;
     }
-
+    
     /**
-     * Adds Resources to ACL
+     * Adds module defined resources/privileges to ACL
      *
      * @param $resources
-     * @return User\Acl
+     * @return CsnAuthorization\Acl\Acl
      * @throws \Exception
      */
-    protected function _addResources($resources)
+    protected function _addConfigDefinedResources($resources)
     {
         foreach ($resources as $permission => $controllers) {
             foreach ($controllers as $controller => $actions) {
@@ -107,12 +148,12 @@ class Acl extends ZendAcl {
                         $this->addResource(new Resource($controller));
                     }
                 }
-
+    
                 foreach ($actions as $action => $role) {
                     if ($action == 'all') {
                         $action = null;
                     }
-
+    
                     if ($permission == 'allow') {
                         $this->allow($role, $controller, $action);
                     } elseif ($permission == 'deny') {
@@ -121,6 +162,46 @@ class Acl extends ZendAcl {
                         throw new \Exception('No valid permission defined: ' . $permission);
                     }
                 }
+            }
+        }
+    
+        return $this;
+    }    
+
+    /**
+     * Adds database defined role to ACL
+     *
+     * @param array $roleName
+     * @return CsnAuthorization\Acl\Acl
+     */
+    protected function _addDatabaseDefinedRole($roleName)
+    {
+        if (!$this->hasRole($roleName)) {
+            $this->addRole(new Role($roleName));
+        }
+        
+        return $this;
+    }
+
+    /**
+     * Adds resources/privileges to ACL
+     *
+     * @param $roleName
+     * @param $privileges
+     * @return CsnAuthorization\Acl\Acl
+     * @throws \Exception
+     */
+    protected function _addDatabaseDefinedAclRules($roleName, $privileges)
+    {
+        foreach($privileges as $privilege) {
+            if (!$this->hasResource($privilege->getResource())) {
+                $this->addResource(new Resource($privilege->getResource()));
+            }
+            
+            if($privilege->getIsAllowed()) {
+                $this->allow($roleName, $privilege->getResource(), $privilege->getPrivilege());
+            } else {
+                $this->deny($roleName, $privilege->getResource(), $privilege->getPrivilege());
             }
         }
 

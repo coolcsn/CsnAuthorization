@@ -1,0 +1,43 @@
+<?php
+/**
+ * CsnAuthorization - Coolcsn Zend Framework 2 Authorization Module
+ * 
+ * @link https://github.com/coolcsn/CsnAuthorization for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
+ * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
+ * @author Stoyan Cheresharov <stoyan@coolcsn.com>
+ * @author Stoyan Revov <st.revov@gmail.com>
+ * @author Martin Briglia <martin@mgscreativa.com>
+ */
+?>
+
+<h3><?php echo $this->translate('Module '.$form->get('Privilege')->get('CsnAuthorization')->getLabel(), 'csnauthorization')?></h3>
+<div class="row">
+  <div class="col-md-3">
+    <!-- RoleAdminController Actions -->
+    <?php
+      $element = $form->get('Privilege')->get('CsnAuthorization')->get('RoleAdmin')->get('index');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnAuthorization')->get('RoleAdmin')->get('create-role');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnAuthorization')->get('RoleAdmin')->get('edit-role');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>  
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnAuthorization')->get('RoleAdmin')->get('delete-role');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+</div>
+<hr />
+  

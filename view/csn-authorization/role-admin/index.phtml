@@ -1,0 +1,69 @@
+<?php
+/**
+ * CsnAuthorization - Coolcsn Zend Framework 2 Authorization Module
+ * 
+ * @link https://github.com/coolcsn/CsnAuthorization for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
+ * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
+ * @author Stoyan Cheresharov <stoyan@coolcsn.com>
+ * @author Stoyan Revov <st.revov@gmail.com>
+ * @author Martin Briglia <martin@mgscreativa.com>
+ */
+
+$flashMessenger = $this->flashMessenger()
+  ->setMessageOpenFormat(
+  '<div%s>
+     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+         &times;
+     </button>
+     <ul><li>')
+  ->setMessageSeparatorString('</li><li>')
+  ->setMessageCloseString('</li></ul></div>');
+?>
+
+<div class="container wrapper">
+ <?php echo $flashMessenger->render('error',   array('alert', 'alert-dismissable', 'alert-danger')); ?>
+ <?php echo $flashMessenger->render('info',    array('alert', 'alert-dismissable', 'alert-info')); ?>
+ <?php echo $flashMessenger->render('default', array('alert', 'alert-dismissable', 'alert-warning')); ?>
+ <?php echo $flashMessenger->render('success', array('alert', 'alert-dismissable', 'alert-success')); ?>
+</div>
+<h1>
+  <?php echo $this->translate('Roles Admin Table', 'csnauthorization') ?>
+</h1>
+<a class="btn btn-success" href="<?php echo $this->url('role-admin', array('action' => 'create-role')); ?>">
+  <?php echo $this->translate('Create Role', 'csnauthorization') ?>
+</a>
+<hr />
+<div class="table-responsive">
+  <table class="users-list table table-striped table-condensed table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+          <th><?php echo $this->translate('Name', 'csnauthorization') ?></th>
+          <th><?php echo $this->translate('Actions', 'csnauthorization') ?></th>
+        </tr>
+      </thead>
+      <?php
+        foreach ($roles as $role) {
+      ?>
+      <tr>
+        <td><?php  echo $role->getId(); ?></td>
+        <td>
+          <a class="name" href="<?php echo $this->url('role-admin', array('action' => 'edit-role', 'id' => $role->getId())); ?>">
+            <?php echo $role->getName() ?>
+          </a>
+        </td>
+        <td class="delete-cell">
+          <a href="<?php echo $this->url('role-admin', array('action'=>'edit-role', 'id' => $role->getId()));?>">
+            <?php echo $this->translate('Edit', 'csnauthorization') ?>
+          </a> | 
+          <a href="<?php echo $this->url('role-admin', array('action'=>'delete-role', 'id' => $role->getId()));?>" onclick="return confirm('<?php echo $this->translate('Do you really want to delete this role?', 'csnauthorization') ?>')">
+            <?php echo $this->translate('Delete', 'csnauthorization') ?>
+          </a>
+        </td>
+      </tr>
+      <?php
+      }
+      ?>
+  </table>
+</div>

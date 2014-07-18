@@ -1,0 +1,159 @@
+<?php
+/**
+ * CsnAuthorization - Coolcsn Zend Framework 2 Authorization Module
+ * 
+ * @link https://github.com/coolcsn/CsnAuthorization for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
+ * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
+ * @author Stoyan Cheresharov <stoyan@coolcsn.com>
+ * @author Stoyan Revov <st.revov@gmail.com>
+ * @author Martin Briglia <martin@mgscreativa.com>
+ */
+?>
+
+<h3><?php echo $this->translate('Module '.$form->get('Privilege')->get('CsnCms')->getLabel(), 'csnauthorization')?></h3>
+<div class="row">
+  <div class="col-md-3">
+    <!-- IndexController Actions -->
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Index')->get('index');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <!-- ArticleController Actions -->
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Article')->get('index');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Article')->get('add');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>  
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Article')->get('edit');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Article')->get('delete');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Article')->get('view');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Article')->get('vote');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>  
+  <div class="col-md-3">
+    <!-- CategoryController Actions -->
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Category')->get('index');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Category')->get('add');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Category')->get('edit');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Category')->get('delete');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>  
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Category')->get('view');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <!-- CommentController Actions -->
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Comment')->get('index');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Comment')->get('add');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Comment')->get('edit');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Comment')->get('delete');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>  
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <!-- TranslationController Actions -->
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Translation')->get('index');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Translation')->get('add');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Translation')->get('edit');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Translation')->get('delete');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>  
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <?php
+      $element = $form->get('Privilege')->get('CsnCms')->get('Translation')->get('view');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+</div>
+<hr />
+  

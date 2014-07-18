@@ -1,0 +1,114 @@
+<?php
+/**
+ * CsnAuthorization - Coolcsn Zend Framework 2 Authorization Module
+ * 
+ * @link https://github.com/coolcsn/CsnAuthorization for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 LightSoft 2005 Ltd. Bulgaria
+ * @license https://github.com/coolcsn/CsnAuthorization/blob/master/LICENSE BSDLicense
+ * @author Stoyan Cheresharov <stoyan@coolcsn.com>
+ * @author Stoyan Revov <st.revov@gmail.com>
+ * @author Martin Briglia <martin@mgscreativa.com>
+ */
+?>
+
+<h3><?php echo $this->translate('Module '.$form->get('Privilege')->get('CsnUser')->getLabel(), 'csnauthorization')?></h3>
+<div class="row">
+  <div class="col-md-2">
+    <!-- indexController Actions -->
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Index')->get('index');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-2">
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Index')->get('login');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-2">
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Index')->get('logout');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-2">
+    <!-- RegistrationController Actions -->
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Registration')->get('index');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-2">
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Registration')->get('edit-profile');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Registration')->get('change-password');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-4">
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Registration')->get('reset-password');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+    </div>
+    <div class="col-md-4">
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Registration')->get('change-security-question');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Registration')->get('change-email');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <?php
+    echo $this->formRow($form->get('Privilege')->get('CsnUser')->get('Registration')->get('confirm-email'));
+    echo $this->formRow($form->get('Privilege')->get('CsnUser')->get('Registration')->get('confirm-email-change-password'));
+  ?>
+  <div class="col-md-3">
+    <!-- AdminController Actions -->
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Admin')->get('index');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Admin')->get('create-user');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-3">
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Admin')->get('edit-user');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>  
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Admin')->get('set-user-state');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+  <div class="col-md-6">
+    <?php
+      $element = $form->get('Privilege')->get('CsnUser')->get('Admin')->get('delete-user');
+      echo $this->formLabel($element, $this->formCheckbox($element), 'append');
+    ?>
+  </div>
+</div>
+<hr />
